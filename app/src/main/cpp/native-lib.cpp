@@ -1,28 +1,32 @@
 #include "DxLib.h"
-#include "iostream"
 
-// プログラムは android_main から始まります
 int android_main( void )
 {
-    int Sx , Sy , Cb ;
-    GetScreenState( &Sx , &Sy , &Cb ) ;
-    SetGraphMode( Sx , Sy , Cb ) ;
+    //SetDrawScreen(DX_SCREEN_BACK);
+    //SetDrawMode(DX_DRAWMODE_BILINEAR);
     int i ;
     int PosX, PosY ;
-    if( DxLib_Init() == -1 )		// ＤＸライブラリ初期化処理
+    int GHandle ;
+    SetGraphMode(1920,1080, 32);
+    if( DxLib_Init() == -1 )        // ＤＸライブラリ初期化処理
     {
-        return -1 ;			// エラーが起きたら直ちに終了
+        return -1;        // エラーが起きたら直ちに終了
     }
-    while( ProcessMessage() == 0 )
-    {
-        ClearDrawScreen();
-        DrawBox( 220, 140, 420, 340, GetColor( 255,255,255 ), TRUE ) ;	// 四角形を描画する
-        GetTouchInput( i, &PosX, &PosY, NULL, NULL );
-        printfDx("%s\n", &PosX);
-        LoadGraphScreen( PosX, PosY, "test.bmp" , TRUE ) ;
-    ScreenFlip() ;
+
+    // ＢＭＰ画像のメモリへの読みこみ
+    GHandle = LoadGraph( "test.bmp" ) ;
+    //
+
+
+    // 画面左上に描画します(『DrawGraph』を使用)
+    while(ProcessMessage()==0&&ClearDrawScreen()==0) {
+        GetTouchInput( i, &PosX, &PosY, NULL, NULL ) ;
+        DrawRotaGraphF(PosX, PosY, 1, 0, GHandle, TRUE);
+        ScreenFlip();
     }
-    //WaitKey() ;				// キー入力待ち
-    DxLib_End() ;				// ＤＸライブラリ使用の終了処理
-    return 0 ;					// ソフトの終了
+    // 読み込んだ画像のグラフィックハンドルを削除
+    DeleteGraph( GHandle ) ;
+    DxLib_End() ;            // ＤＸライブラリ使用の終了処理
+
+    return 0 ;            // ソフトの終了
 }
