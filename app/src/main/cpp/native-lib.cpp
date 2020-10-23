@@ -27,6 +27,6 @@ int android_main( void )
     // 読み込んだ画像のグラフィックハンドルを削除
     DeleteGraph( GHandle ) ;
     DxLib_End() ;            // ＤＸライブラリ使用の終了処理
-
+//
     return 0 ;            // ソフトの終了
 }
