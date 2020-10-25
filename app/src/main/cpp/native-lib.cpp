@@ -2,31 +2,38 @@
 
 int android_main( void )
 {
-    //SetDrawScreen(DX_SCREEN_BACK);
-    //SetDrawMode(DX_DRAWMODE_BILINEAR);
     int i ;
     int PosX, PosY ;
-    int GHandle ;
-    SetGraphMode(1920,1080, 32);
-    if( DxLib_Init() == -1 )        // ＤＸライブラリ初期化処理
+
+    // ＤＸライブラリの初期化
+    if( DxLib_Init() < 0 ) return -1 ;
+
+    // 描画先を裏画面にする
+    SetDrawScreen( DX_SCREEN_BACK ) ;
+
+    // メインループ
+    while( ProcessMessage() == 0 )
     {
-        return -1;        // エラーが起きたら直ちに終了
+        // 画面のクリア
+        ClearDrawScreen() ;
+
+        // タッチされている箇所の数だけ繰り返し
+        for( i = 0 ; i < GetTouchInputNum() ; i ++ )
+        {
+            // タッチされている箇所の座標を取得
+            GetTouchInput( i, &PosX, &PosY, NULL, NULL ) ;
+
+            // タッチされている箇所の座標に円を描画
+            DrawCircle( PosX, PosY, 40, GetColor( 255, 255, 255 ), TRUE ) ;
+        }
+
+        // 裏画面の内容を表画面に反映
+        ScreenFlip() ;
     }
 
-    // ＢＭＰ画像のメモリへの読みこみ
-    GHandle = LoadGraph( "test.bmp" ) ;
-    //
+    // ＤＸライブラリの後始末
+    DxLib_End() ;
 
-
-    // 画面左上に描画します(『DrawGraph』を使用)
-    while(ProcessMessage()==0&&ClearDrawScreen()==0) {
-        GetTouchInput( i, &PosX, &PosY, NULL, NULL ) ;
-        DrawRotaGraphF(PosX, PosY, 1, 0, GHandle, TRUE);
-        ScreenFlip();
-    }
-    // 読み込んだ画像のグラフィックハンドルを削除
-    DeleteGraph( GHandle ) ;
-    DxLib_End() ;            // ＤＸライブラリ使用の終了処理
-//
-    return 0 ;            // ソフトの終了
+    // ソフトの終了
+    return 0 ;
 }
