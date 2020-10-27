@@ -52,16 +52,16 @@ SetGraphMode( 1280 , 720, 32 ) ;
         DrawRotaGraphF(1106,360,1,0,taskbar,false);
 
         // タッチされている箇所の数だけ繰り返し
-        for( i = 0 ; i < GetTouchInputNum() ; i ++ )
-        {
+
             if(GetTouchInputNum()>0) {
-                // タッチされている箇所の座標を取得
+                // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
                 GetTouchInput(i, &PosX, &PosY, NULL, NULL);
+
+
             }
-        }
         DrawRotaGraphF(PosX, PosY, 1.5, 0, kyara[11], true);
         DrawRotaGraphF(400, 200, 1+((double)title_size/300), 0, title, true);
-        DrawRotaGraphF(440, 400, 1, 0, start_button, true);
+        DrawGraph(350, 370, start_button,true);
         // 裏画面の内容を表画面に反映
         DrawFormatStringF(1000, 0, GetColor(255, 255, 255), "FPS:%i", fps);
         ScreenFlip() ;
