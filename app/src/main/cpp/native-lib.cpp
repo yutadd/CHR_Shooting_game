@@ -3,18 +3,20 @@
 int android_main( void )
 {
     int i ;
-    int PosX=300, PosY =300;
+    int PosX=300, PosY =400;
     int back;
     int frames=0;
     int title;
+    int start_button;
     int kyara[12];
     int taskbar;
 SetGraphMode( 1280 , 720, 32 ) ;
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
-    back=LoadGraph("back.png",false);
-    title=LoadGraph("title.png",false);
+    back=LoadGraph("back.png");
+    title=LoadGraph("title.png");
     taskbar=LoadGraph("taskbar.png");
+    start_button=LoadGraph("start.png");
     LoadDivGraph("kyara.png",12,3,4,48,48,kyara);
     // 描画先を裏画面にする
     SetDrawScreen( DX_SCREEN_BACK ) ;
@@ -31,7 +33,7 @@ SetGraphMode( 1280 , 720, 32 ) ;
        // if (frames % 10==0) {
         if (title_b) {
             title_size++;
-            if (title_size > 15) {
+            if (title_size > 50) {
                 title_b = false;
             }
         } else {
@@ -58,7 +60,8 @@ SetGraphMode( 1280 , 720, 32 ) ;
             }
         }
         DrawRotaGraphF(PosX, PosY, 1.5, 0, kyara[11], true);
-        DrawRotaGraphF(500, 150, 1+((double)title_size/100), 0, title, true);
+        DrawRotaGraphF(400, 200, 1+((double)title_size/300), 0, title, true);
+        DrawRotaGraphF(440, 400, 1, 0, start_button, true);
         // 裏画面の内容を表画面に反映
         DrawFormatStringF(1000, 0, GetColor(255, 255, 255), "FPS:%i", fps);
         ScreenFlip() ;
