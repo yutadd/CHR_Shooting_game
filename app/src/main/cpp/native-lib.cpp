@@ -4,7 +4,7 @@ int android_main( void )
 {
     int i ;
     int PosX, PosY ;
-
+SetGraphMode( 1280 , 720, 32 ) ;
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
 
