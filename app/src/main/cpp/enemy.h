@@ -4,7 +4,7 @@
 //
 
 #include "DxLib.h"
-
+#include "vector"
 #ifndef TEST_DXLIB_ENEMY_H
 #define TEST_DXLIB_ENEMY_H
 
@@ -13,11 +13,12 @@ class enemy {
 public:
 enemy();
 int x,y;
-int graph[96];
+int graph;
+int gazo=LoadGraph("exit.bmp");
 
 //vector<kome>;
-//std::vector<int,int> enemy_vector;
-enemy(int x,int y,int type);
+VECTOR enemy_vector;
+enemy(int x,int y,int type, int graph);
 bool control();
 ~enemy();
 };

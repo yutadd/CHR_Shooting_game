@@ -6,11 +6,13 @@
 enemy::enemy(){
 
 }
-enemy::enemy(int x,int y,int type){
-    LoadDivGraph("kyara.bmp",96,12,8,48,48,graph);
+enemy::enemy(int x,int y,int type,int kyara){
+    graph=kyara;
+    enemy::x=x;
+    enemy::y=y;
 };
 bool enemy::control(){
-    DrawFormatString(100, 0, GetColor(255, 255, 255), "AAAAAAAAAAAAAAAAAAAAA");
+    DrawGraph(x,y,graph,0);
     return true;
 }
 enemy::~enemy() {

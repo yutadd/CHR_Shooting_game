@@ -2,7 +2,10 @@
 #include "scenario.h"
 #include "thread"
 #include "enemy.h"
+#include "vector"
 #include "unistd.h"
+std::vector<enemy> en;
+int kyara[96];
 int android_main( void )
 {
     int touch_num=0;
@@ -12,7 +15,7 @@ int android_main( void )
     int title;
     int screen=0;
     int start_button;
-    int kyara[96];
+
     int exit;
     void sce();
     int right;
@@ -86,19 +89,17 @@ int android_main( void )
                     if(GetTouchInputNum()>0) {
                         // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
                         if(930<tempx && 370<tempy&&tempx<1156&&442>tempy){
-                            screen=1;
+                            screen=2;
                             break;
                         }
                     }
                 }
                 //レベル選択
         }else if(screen==1) {
-            enemy en= enemy(0,0,1);
 
             while (ProcessMessage() == 0) {
                 frames++;
                 ClearDrawScreen();
-
                 DrawGraph(0, 0, back, true);
                 DrawGraph(350, 0, levels, true);
                 DrawGraph(450, 150, easy, true);
@@ -106,9 +107,7 @@ int android_main( void )
                 DrawGraph(450, 450, hard, true);
                 DrawRotaGraphF(150, 200+(150*level), 4, 0,kyara[26], true);
                 DrawRotaGraphF(1150, 200+(150*level), 4, 0,kyara[18], true);
-                en.control();
                 ScreenFlip();
-                GetTouchInput(touch_num, &tempx, &tempy);
                 if(GetTouchInputNum()>0) {
                     // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
                     if(930<tempx && 370<tempy&&tempx<1156&&442>tempy){
@@ -118,13 +117,17 @@ int android_main( void )
                 }
             }
         }else if(screen==2){
-            std::thread th=std::thread(sce);
+
+            std::thread th(sce);
+            th.detach();
                 while(ProcessMessage() == 0){
                     frames++;
                     ClearDrawScreen();
                     DrawRotaGraphF(1106,360,1,0,taskbar,false);
                     DrawGraph(0, 0, back, true);
-
+                    for(int i=0;i<en.size();i++){
+                        en[i].control();
+                    }
                     ScreenFlip();
                 }
             }
@@ -135,6 +138,6 @@ int android_main( void )
     return 0 ;
 }
 void sce(){
-usleep(1000*1000);
-
+    usleep(1000*1000);
+    en.push_back(enemy(50,50,0,kyara[18]));
 }
