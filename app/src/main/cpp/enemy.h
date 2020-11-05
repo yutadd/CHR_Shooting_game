@@ -13,7 +13,8 @@ class enemy {
 public:
 enemy();
 int x,y;
-int graph;
+int graph[96];
+
 //vector<kome>;
 //std::vector<int,int> enemy_vector;
 enemy(int x,int y,int type);

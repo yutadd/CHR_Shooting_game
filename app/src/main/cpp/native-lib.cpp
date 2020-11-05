@@ -1,9 +1,8 @@
 #include "DxLib.h"
 #include "scenario.h"
-#include "unistd.h"
+#include "thread"
 #include "enemy.h"
-
-#define PI    3.1415926535897932384626433832795f
+#include "unistd.h"
 int android_main( void )
 {
     int touch_num=0;
@@ -13,20 +12,29 @@ int android_main( void )
     int title;
     int screen=0;
     int start_button;
-    int kyara[12];
-    int chr;
+    int kyara[96];
     int exit;
     void sce();
     int right;
     int taskbar;
+
+    int levels;
+    int easy;
+    int normal;
+    int hard;
+    int level;
     SetGraphMode( 1280 , 720, 32,60 ) ;
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
+    level=2;
     back=LoadGraph("back2.png");
-    chr=LoadGraph("chr.png");
+    easy=LoadGraph("easy.png");
+    normal=LoadGraph("normal.png");
+    hard=LoadGraph("hardl.png");
     exit=LoadGraph("exit.bmp");
     right=LoadGraph("right.bmp");
     title=LoadGraph("title.bmp");
+    levels=LoadGraph("levels.png");
     taskbar=LoadGraph("taskbar.png");
     start_button=LoadGraph("start.bmp");
     LoadDivGraph("kyara.bmp",96,12,8,48,48,kyara);
@@ -84,28 +92,43 @@ int android_main( void )
                     }
                 }
                 //レベル選択
-        }else if(screen==1){
-            while( ProcessMessage() == 0) {
-                frames++;
-                ClearDrawScreen() ;
-                DrawGraph(0, 0, back,true);
-                ScreenFlip() ;
-            }
-            //ステージ
-        }else if(screen==2){
-            int bgm=LoadSoundMem("stage.mp3");
-            PlaySoundMem(bgm,DX_PLAYTYPE_LOOP);
-            while( ProcessMessage() == 0) {
-                frames++;
-                ClearDrawScreen() ;
-                std::thread th_1(sce);
+        }else if(screen==1) {
+            enemy en= enemy(0,0,1);
 
-                th_1.detach();
-                DrawGraph(0, 0, back,true);
-                ScreenFlip() ;
+            while (ProcessMessage() == 0) {
+                frames++;
+                ClearDrawScreen();
+
+                DrawGraph(0, 0, back, true);
+                DrawGraph(350, 0, levels, true);
+                DrawGraph(450, 150, easy, true);
+                DrawGraph(450, 300, normal, true);
+                DrawGraph(450, 450, hard, true);
+                DrawRotaGraphF(150, 200+(150*level), 4, 0,kyara[26], true);
+                DrawRotaGraphF(1150, 200+(150*level), 4, 0,kyara[18], true);
+                en.control();
+                ScreenFlip();
+                GetTouchInput(touch_num, &tempx, &tempy);
+                if(GetTouchInputNum()>0) {
+                    // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
+                    if(930<tempx && 370<tempy&&tempx<1156&&442>tempy){
+                        screen=1;
+                        break;
+                    }
+                }
+            }
+        }else if(screen==2){
+            std::thread th=std::thread(sce);
+                while(ProcessMessage() == 0){
+                    frames++;
+                    ClearDrawScreen();
+                    DrawRotaGraphF(1106,360,1,0,taskbar,false);
+                    DrawGraph(0, 0, back, true);
+
+                    ScreenFlip();
+                }
             }
         }
-    }
     // ＤＸライブラリの後始末
     DxLib_End() ;
     // ソフトの終了
@@ -113,4 +136,5 @@ int android_main( void )
 }
 void sce(){
 usleep(1000*1000);
+
 }

@@ -3,14 +3,16 @@
 //
 #include "enemy.h"
 #include "DxLib.h"
-int graph=0;
 enemy::enemy(){
 
 }
 enemy::enemy(int x,int y,int type){
-
+    LoadDivGraph("kyara.bmp",96,12,8,48,48,graph);
 };
 bool enemy::control(){
-    DrawRotaGraphFast(0, 0, (float)1.2, (float)0.0,0,0);
+    DrawFormatString(100, 0, GetColor(255, 255, 255), "AAAAAAAAAAAAAAAAAAAAA");
     return true;
+}
+enemy::~enemy() {
+
 }
