@@ -1,6 +1,5 @@
 #include "DxLib.h"
-#include "unistd.h"
-#include "thread"
+#include "scenario.h"
 #include "unistd.h"
 #include "enemy.h"
 
@@ -19,7 +18,6 @@ int android_main( void )
     int exit;
     void sce();
     int right;
-
     int taskbar;
     SetGraphMode( 1280 , 720, 32,60 ) ;
     // ＤＸライブラリの初期化
@@ -31,7 +29,7 @@ int android_main( void )
     title=LoadGraph("title.bmp");
     taskbar=LoadGraph("taskbar.png");
     start_button=LoadGraph("start.bmp");
-    LoadDivGraph("kyara.png",12,3,4,48,48,kyara);
+    LoadDivGraph("kyara.bmp",96,12,8,48,48,kyara);
     // 描画先を裏画面にする
     SetDrawScreen( DX_SCREEN_BACK ) ;
 
@@ -113,8 +111,6 @@ int android_main( void )
     // ソフトの終了
     return 0 ;
 }
-//どこで敵キャラは移動させる？
-//↑敵キャラにvectorを持たせて、弾の移動ついでに移動させる
 void sce(){
 usleep(1000*1000);
 }
