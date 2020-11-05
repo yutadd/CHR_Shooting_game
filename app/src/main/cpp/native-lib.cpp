@@ -6,6 +6,7 @@
 #include "unistd.h"
 std::vector<enemy> en;
 int kyara[96];
+int screen=0;
 int android_main( void )
 {
     int touch_num=0;
@@ -13,7 +14,7 @@ int android_main( void )
     int back;
     int frames=0;
     int title;
-    int screen=0;
+
     int start_button;
 
     int exit;
@@ -120,7 +121,7 @@ int android_main( void )
 
             std::thread th(sce);
             th.detach();
-                while(ProcessMessage() == 0){
+                while(ProcessMessage() == 0&&screen==2){
                     frames++;
                     ClearDrawScreen();
                     DrawRotaGraphF(1106,360,1,0,taskbar,false);
@@ -129,6 +130,7 @@ int android_main( void )
                         en[i].control();
                     }
                     ScreenFlip();
+
                 }
             }
         }
@@ -140,4 +142,6 @@ int android_main( void )
 void sce(){
     usleep(1000*1000);
     en.push_back(enemy(50,50,0,kyara[18]));
+    usleep(2000*1000);
+    screen=0;
 }
