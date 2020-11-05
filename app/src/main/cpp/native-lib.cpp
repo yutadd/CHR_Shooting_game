@@ -1,6 +1,10 @@
 #include "DxLib.h"
-#include "scenario.h"
 #include "unistd.h"
+#include "thread"
+#include "unistd.h"
+#include "enemy.h"
+
+#define PI    3.1415926535897932384626433832795f
 int android_main( void )
 {
     int touch_num=0;
@@ -13,7 +17,9 @@ int android_main( void )
     int kyara[12];
     int chr;
     int exit;
+    void sce();
     int right;
+
     int taskbar;
     SetGraphMode( 1280 , 720, 32,60 ) ;
     // ＤＸライブラリの初期化
@@ -87,6 +93,19 @@ int android_main( void )
                 DrawGraph(0, 0, back,true);
                 ScreenFlip() ;
             }
+            //ステージ
+        }else if(screen==2){
+            int bgm=LoadSoundMem("stage.mp3");
+            PlaySoundMem(bgm,DX_PLAYTYPE_LOOP);
+            while( ProcessMessage() == 0) {
+                frames++;
+                ClearDrawScreen() ;
+                std::thread th_1(sce);
+
+                th_1.detach();
+                DrawGraph(0, 0, back,true);
+                ScreenFlip() ;
+            }
         }
     }
     // ＤＸライブラリの後始末
@@ -94,6 +113,8 @@ int android_main( void )
     // ソフトの終了
     return 0 ;
 }
+//どこで敵キャラは移動させる？
+//↑敵キャラにvectorを持たせて、弾の移動ついでに移動させる
 void sce(){
-
+usleep(1000*1000);
 }
