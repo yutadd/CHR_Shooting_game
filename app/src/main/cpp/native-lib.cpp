@@ -21,7 +21,7 @@ int android_main( void )
     void sce();
     int right;
     int taskbar;
-
+int vect
     int levels;
     int easy;
     int normal;
@@ -35,6 +35,7 @@ int android_main( void )
     easy=LoadGraph("easy.png");
     normal=LoadGraph("normal.png");
     hard=LoadGraph("hardl.png");
+    vect=LoadGraph("vector.png");
     exit=LoadGraph("exit.bmp");
     right=LoadGraph("right.bmp");
     title=LoadGraph("title.bmp");
@@ -90,7 +91,7 @@ int android_main( void )
                     if(GetTouchInputNum()>0) {
                         // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
                         if(930<tempx && 370<tempy&&tempx<1156&&442>tempy){
-                            screen=2;
+                            screen=1;
                             break;
                         }
                     }
@@ -109,10 +110,11 @@ int android_main( void )
                 DrawRotaGraphF(150, 200+(150*level), 4, 0,kyara[26], true);
                 DrawRotaGraphF(1150, 200+(150*level), 4, 0,kyara[18], true);
                 ScreenFlip();
+                GetTouchInput(touch_num, &tempx, &tempy);
                 if(GetTouchInputNum()>0) {
                     // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
-                    if(930<tempx && 370<tempy&&tempx<1156&&442>tempy){
-                        screen=1;
+                    if(450<tempx && 150<tempy&&tempx<850&&300>tempy){
+                        screen=2;
                         break;
                     }
                 }
@@ -124,8 +126,9 @@ int android_main( void )
                 while(ProcessMessage() == 0&&screen==2){
                     frames++;
                     ClearDrawScreen();
-                    DrawRotaGraphF(1106,360,1,0,taskbar,false);
                     DrawGraph(0, 0, back, true);
+                    DrawRotaGraphF(1106,360,1,0,taskbar,false);
+                    DrawGraph(0, 0, vect, true);
                     for(int i=0;i<en.size();i++){
                         en[i].control();
                     }
