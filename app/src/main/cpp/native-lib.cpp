@@ -41,7 +41,7 @@ int android_main( void )
     easy=LoadGraph("easy.png");
     normal=LoadGraph("normal.png");
     hard=LoadGraph("hardl.png");
-    vect=LoadGraph("vector2.png");
+    vect=LoadGraph("vector3.png");
     exit=LoadGraph("exit.bmp");
     right=LoadGraph("right.bmp");
     title=LoadGraph("title.bmp");
