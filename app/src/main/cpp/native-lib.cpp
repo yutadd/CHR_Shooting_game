@@ -4,6 +4,8 @@
 #include "enemy.h"
 #include "vector"
 #include "unistd.h"
+#include "player.h"
+
 std::vector<enemy> en;
 int kyara[96];
 int screen=0;
@@ -19,14 +21,16 @@ int android_main( void )
 
     int exit;
     void sce();
+    player player1;
     int right;
     int taskbar;
-int vect
+    int vect;
     int levels;
     int easy;
     int normal;
     int hard;
     int level;
+    int fonts[63];
     SetGraphMode( 1280 , 720, 32,60 ) ;
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
@@ -35,7 +39,7 @@ int vect
     easy=LoadGraph("easy.png");
     normal=LoadGraph("normal.png");
     hard=LoadGraph("hardl.png");
-    vect=LoadGraph("vector.png");
+    vect=LoadGraph("vector2.png");
     exit=LoadGraph("exit.bmp");
     right=LoadGraph("right.bmp");
     title=LoadGraph("title.bmp");
@@ -43,9 +47,10 @@ int vect
     taskbar=LoadGraph("taskbar.png");
     start_button=LoadGraph("start.bmp");
     LoadDivGraph("kyara.bmp",96,12,8,48,48,kyara);
+    LoadDivGraph("font2.png",64,16,4,11,18,fonts);
     // 描画先を裏画面にする
     SetDrawScreen( DX_SCREEN_BACK ) ;
-
+    player1=player(kyara[38]);
     // メインループ
     long time;
     long nowtime;
@@ -120,18 +125,24 @@ int vect
                 }
             }
         }else if(screen==2){
+            SetFontSize(50);
+            int FontHandle = CreateFontToHandle( NULL, 16, 0 ) ;
+            AddFontImageToHandle(FontHandle,"0",fonts[47],0,0,16) ;
 
             std::thread th(sce);
             th.detach();
                 while(ProcessMessage() == 0&&screen==2){
-                    frames++;
-                    ClearDrawScreen();
-                    DrawGraph(0, 0, back, true);
-                    DrawRotaGraphF(1106,360,1,0,taskbar,false);
-                    DrawGraph(0, 0, vect, true);
-                    for(int i=0;i<en.size();i++){
-                        en[i].control();
-                    }
+                     frames++;
+                     ClearDrawScreen();
+                     DrawGraph(0, 0, back, true);
+                     player1.control();
+                     DrawRotaGraphF(1106,360,1,0,taskbar,false);
+                    DrawGraph(1000, 500, vect, true);
+                    SetFontSize(70);
+                      DrawFormatStringToHandle(1000,100,GetColor(255,255,255),FontHandle,"%d0000",player1.score);
+                   for(int i=0;i<en.size();i++){
+                         en[i].control();
+                     }
                     ScreenFlip();
 
                 }
@@ -144,7 +155,12 @@ int vect
 }
 void sce(){
     usleep(1000*1000);
-    en.push_back(enemy(50,50,0,kyara[18]));
-    usleep(2000*1000);
-    screen=0;
+    en.push_back(enemy(500,-50,0,kyara[19]));
+    usleep(500*1000);
+    en.push_back(enemy(500,-50,0,kyara[19]));
+    usleep(500*1000);
+    en.push_back(enemy(500,-50,0,kyara[19]));
+    usleep(500*1000);
+    en.push_back(enemy(500,-50,0,kyara[19]));
+    //screen=0;
 }
