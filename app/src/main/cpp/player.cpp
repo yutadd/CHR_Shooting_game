@@ -19,8 +19,8 @@ player::~player() {
 
 void player::control() {
     frames++;
-    if(frames>=10&&GetTouchInputNum()>0){
-        GetTouchInput(0, &tempx, &tempy);
+    for(int n=0;frames>=10&&n<GetTouchInputNum();n++){
+        GetTouchInput(n, &tempx, &tempy);
         if(tempx>20&&tempy>20&&tempx<920&&tempy<720){
             x=tempx;
             y=tempy;
@@ -66,5 +66,5 @@ void player::control() {
         }
     }
 
-    DrawRotaGraphF(x,y,1,0,pkyara,1);
+    DrawRotaGraphF(x,y,1.4,0,pkyara,1);
 }

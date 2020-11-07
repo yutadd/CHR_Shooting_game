@@ -8,6 +8,7 @@
 
 std::vector<enemy> en;
 int kyara[96];
+int enes[96];
 int screen=0;
 int android_main( void )
 {
@@ -27,6 +28,7 @@ int android_main( void )
     int vect;
     int levels;
     int easy;
+
     int normal;
     int hard;
     int level;
@@ -47,7 +49,8 @@ int android_main( void )
     taskbar=LoadGraph("taskbar.png");
     start_button=LoadGraph("start.bmp");
     LoadDivGraph("kyara.bmp",96,12,8,48,48,kyara);
-    LoadDivGraph("font2.png",64,16,4,11,18,fonts);
+    LoadDivGraph("fontk2.png",64,16,4,22,35,fonts);
+    LoadDivGraph("enes.png",96,12,8,48,48,enes);
     // 描画先を裏画面にする
     SetDrawScreen( DX_SCREEN_BACK ) ;
     player1=player(kyara[38]);
@@ -125,9 +128,10 @@ int android_main( void )
                 }
             }
         }else if(screen==2){
+
             SetFontSize(50);
             int FontHandle = CreateFontToHandle( NULL, 16, 0 ) ;
-            AddFontImageToHandle(FontHandle,"0",fonts[47],0,0,16) ;
+            AddFontImageToHandle(FontHandle,"0",fonts[48],0,0,35) ;
 
             std::thread th(sce);
             th.detach();
@@ -138,7 +142,6 @@ int android_main( void )
                      player1.control();
                      DrawRotaGraphF(1106,360,1,0,taskbar,false);
                     DrawGraph(1000, 500, vect, true);
-                    SetFontSize(70);
                       DrawFormatStringToHandle(1000,100,GetColor(255,255,255),FontHandle,"%d0000",player1.score);
                    for(int i=0;i<en.size();i++){
                          en[i].control();
@@ -155,12 +158,20 @@ int android_main( void )
 }
 void sce(){
     usleep(1000*1000);
-    en.push_back(enemy(500,-50,0,kyara[19]));
+    if(screen!=2)return;
+    en.push_back(enemy(650,-50,0,enes[1]));
+    en.push_back(enemy(350,-50,1,enes[1]));
     usleep(500*1000);
-    en.push_back(enemy(500,-50,0,kyara[19]));
+    if(screen!=2)return;
+    en.push_back(enemy(650,-50,0,enes[1]));
+    en.push_back(enemy(350,-50,1,enes[1]));
     usleep(500*1000);
-    en.push_back(enemy(500,-50,0,kyara[19]));
+    if(screen!=2)return;
+    en.push_back(enemy(650,-50,0,enes[1]));
+    en.push_back(enemy(350,-50,1,enes[1]));
     usleep(500*1000);
-    en.push_back(enemy(500,-50,0,kyara[19]));
+    if(screen!=2)return;
+    en.push_back(enemy(650,-50,0,enes[1]));
+    en.push_back(enemy(350,-50,1,enes[1]));
     //screen=0;
 }
