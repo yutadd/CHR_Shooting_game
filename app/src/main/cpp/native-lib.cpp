@@ -207,7 +207,13 @@ void sce(){
         if (screen != 2)return;
         en.push_back(enemy(650, -50, 2, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(350, -50, 3, &enes[1], &tama_gra[24], &player1));
-        usleep(4000 * 1000);
+        if (screen != 2)return;
+        usleep(3000 * 1000);
+        en.push_back(enemy(650, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(550, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(450, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(350, -50, 4, &enes[4], &tama_gra[24], &player1));
+        usleep(5000 * 1000);
         //screen=0;
     }
 }

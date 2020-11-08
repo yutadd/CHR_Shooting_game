@@ -8,6 +8,17 @@
 #include "vector"
 #include "thread"
 #define PI    3.1415926535897932384626433832795f
+double add(double a,double b){
+    a*=10;
+    b*=10;
+    a+=b;
+    return a/10;
+}
+/*
+ *
+ * 追加中：double誤差なし計算
+ * */
+
 enemy::enemy(){
 
 }
@@ -139,6 +150,32 @@ void enemy::control(){
             }else if(ene_frame==180){
                 enemy_vector.x=-3;
                 enemy_vector.y=1;
+            }
+            y+=enemy_vector.y;
+            x+=enemy_vector.x;
+            break;
+            //任意、上から下へ少し移動した後、半円状に下に発射する。
+        case 4:
+            if(ene_frame<=5){
+                enemy_vector.x=0;
+                enemy_vector.y=3;
+            }else if(ene_frame==40){
+                double kosu=8.0;
+                double kakudo=0.3;
+                double hanni=1;
+                for (double i = 0.0; i < kosu; i++) {
+                    double _rad = ((i / kosu) * DX_PI * hanni) + kakudo;
+                    double fx = (360 * cos(_rad)) + (float)x;
+                    double fy = (360 * sin(_rad)) + (float)y;
+                    //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
+                    tamas.push_back(tama(x, y,VECTOR{ (float)(fx-(float)x)/60.0f,(float)(fy-(float)y)/60.0f },tama_gra));
+                }
+
+                enemy_vector.x=0;
+                enemy_vector.y=0;
+            }else if(ene_frame==100){
+                enemy_vector.x=-0;
+                enemy_vector.y=-3;
             }
             y+=enemy_vector.y;
             x+=enemy_vector.x;
