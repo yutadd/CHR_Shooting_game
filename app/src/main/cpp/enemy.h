@@ -11,17 +11,19 @@
 
 class enemy {
 public:
-enemy();
-int x,y;
-int type;
-int graph;
-int ene_frame=0;
-int gazo=LoadGraph("exit.bmp");
+    enemy();
+
+    int x,y;
+    int type;
+    int graph;
+    int ene_frame=0;
+    int gazo=LoadGraph("exit.bmp");
 //vector<kome>;
-VECTOR enemy_vector;
-enemy(int x,int y,int type, int graph);
-bool control();
-~enemy();
+    VECTOR enemy_vector;
+    enemy(int x,int y,int type, int graph);
+    void control();
+    ~enemy();
+    void draw();
 };
 
 

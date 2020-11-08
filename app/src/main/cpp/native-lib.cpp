@@ -22,6 +22,7 @@ int android_main( void )
 
     int exit;
     void sce();
+    void controler();
     player player1;
     int right;
     int taskbar;
@@ -131,21 +132,32 @@ int android_main( void )
 
             SetFontSize(50);
             int FontHandle = CreateFontToHandle( NULL, 16, 0 ) ;
-            AddFontImageToHandle(FontHandle,"0",fonts[48],0,0,35) ;
+            AddFontImageToHandle(FontHandle,"0",fonts[47],0,0,27) ;
+            AddFontImageToHandle(FontHandle,":",fonts[26],0,0,27) ;
+            AddFontImageToHandle(FontHandle,"s",fonts[51],0,-3,27) ;
+            AddFontImageToHandle(FontHandle,"c",fonts[35],0,0,27) ;
+            AddFontImageToHandle(FontHandle,"o",fonts[47],0,0,27) ;
+            AddFontImageToHandle(FontHandle,"r",fonts[50],0,-3,27) ;
+            AddFontImageToHandle(FontHandle,"e",fonts[37],0,0,27) ;
 
             std::thread th(sce);
             th.detach();
+            std::thread th_2(controler);
+            th_2.detach();
                 while(ProcessMessage() == 0&&screen==2){
                      frames++;
                      ClearDrawScreen();
                      DrawGraph(0, 0, back, true);
                      player1.control();
+                     for(int i=0;i<en.size();i++){
+                        en[i].draw();
+                    }
                      DrawRotaGraphF(1106,360,1,0,taskbar,false);
                     DrawGraph(1000, 500, vect, true);
-                      DrawFormatStringToHandle(1000,100,GetColor(255,255,255),FontHandle,"%d0000",player1.score);
-                   for(int i=0;i<en.size();i++){
-                         en[i].control();
-                     }
+                    SetFontSize(40);
+                    DrawFormatStringToHandle(970,100,GetColor(255,255,255),FontHandle,"score",player1.score);
+                    DrawFormatStringToHandle(1010,130,GetColor(255,255,255),FontHandle,"%d00000",player1.score);
+
                     ScreenFlip();
 
                 }
@@ -174,4 +186,13 @@ void sce(){
     en.push_back(enemy(650,-50,0,enes[1]));
     en.push_back(enemy(350,-50,1,enes[1]));
     //screen=0;
+}
+void controler(){
+    while(true){
+        for(int i=0;i<en.size();i++){
+            en[i].control();
+        }
+        usleep(20*1000);
+    }
+
 }
