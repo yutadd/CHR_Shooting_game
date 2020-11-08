@@ -10,9 +10,11 @@
 class tama {
 public:
     int x=0,y=0;
-    int type;
+    int* graph;
     VECTOR tama_vector;
+    int frame;
     tama();
+    tama(int x,int y,VECTOR vector,int* graph);
     ~tama();
     void draw();
     void control();

@@ -3,25 +3,50 @@
 //
 #include "enemy.h"
 #include "DxLib.h"
+#include "player.h"
+#include "cmath"
+#include "vector"
 #include "thread"
+#define PI    3.1415926535897932384626433832795f
 enemy::enemy(){
 
 }
-enemy::enemy(int x,int y,int type,int kyara){
-    graph=kyara;
+enemy::enemy(int x,int y,int type,int* kyara,int* tama_gra,player* pl){
+    enemy::graph=kyara;
     enemy::x=x;
     enemy::type=type;
     enemy::y=y;
+    enemy::tama_gra=tama_gra;
+    enemy::pl=pl;
 
 };
+VECTOR normal(VECTOR v){
+    float norm2=std::sqrt(v.x * v.x + v.y * v.y);
+    float mag=1/norm2;
+    float x=v.x*mag;
+    float y=v.y*mag;
+    VECTOR ret=VECTOR{x,y};
+    return ret;
+}
 void enemy::control(){
     ene_frame+=1;
     switch(type){
+        //右、右下に進み、扇型を中央に向けて発射し、画面外に移動
         case 0:
             if(ene_frame<=5){
                 enemy_vector.x=2;
                 enemy_vector.y=4;
             }else if(ene_frame==60){
+                int kosu=9;
+                int kakudo=2;
+                float hanni=0.2;
+                for (double i = 0; i < kosu; i++) {
+                    double _rad = ((i / kosu) * PI * hanni) + kakudo;
+                    float fx = (360 * cos(_rad)) + x;
+                    float fy = (360 * sin(_rad)) + y;
+                    //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
+                    tamas.push_back(tama(x, y,VECTOR{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                }
                 enemy_vector.x=-3;
                 enemy_vector.y=2;
             }else if(ene_frame==120){
@@ -31,11 +56,22 @@ void enemy::control(){
             y+=enemy_vector.y;
             x+=enemy_vector.x;
             break;
+            //左,左下に進み、扇型に中央向きで発射
         case 1:
             if(ene_frame<=5){
                 enemy_vector.x=-2;
                 enemy_vector.y=4;
             }else if(ene_frame==60){
+                int kosu=9;
+                int kakudo=7;
+                float hanni=0.2;
+                for (double i = 0; i < kosu; i++) {
+                    double _rad = ((i / kosu) * PI * hanni) + kakudo;
+                    float fx = (360 * cos(_rad)) + x;
+                    float fy = (360 * sin(_rad)) + y;
+                    //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
+                    tamas.push_back(tama(x, y,VECTOR{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                }
                 enemy_vector.x=3;
                 enemy_vector.y=2;
             }else if(ene_frame==120){
@@ -45,10 +81,75 @@ void enemy::control(){
             y+=enemy_vector.y;
             x+=enemy_vector.x;
             break;
+        //下に進み、右に漂うように移動。中間で、円形に発射
+        case 2:
+            if(ene_frame<=5){
+                enemy_vector.x=0;
+                enemy_vector.y=2;
+            }else if(ene_frame==60){
+                int kosu=15;
+                int kakudo=0;
+                float hanni=2;
+                for (double i = 0; i < kosu; i++) {
+                    double _rad = ((i / kosu) * PI * hanni) + kakudo;
+                    float fx = (360 * cos(_rad)) + x;
+                    float fy = (360 * sin(_rad)) + y;
+                    //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
+                    tamas.push_back(tama(x, y,VECTOR{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                }
+                enemy_vector.x=3;
+                enemy_vector.y=-1;
+            }else if(ene_frame==100){
+                enemy_vector.x=3;
+                enemy_vector.y=1;
+            }else if(ene_frame==140){
+                enemy_vector.x=3;
+                enemy_vector.y=-1;
+            }else if(ene_frame==180){
+                enemy_vector.x=3;
+                enemy_vector.y=1;
+            }
+            y+=enemy_vector.y;
+            x+=enemy_vector.x;
+            break;
+            //左,下に進み、左に漂うように移動する、中間で、弾を発射する。
+        case 3:
+            if(ene_frame<=5){
+                enemy_vector.x=0;
+                enemy_vector.y=2;
+            }else if(ene_frame==60){
+                int kosu=15;
+                int kakudo=0;
+                float hanni=2;
+                for (double i = 0; i < kosu; i++) {
+                    double _rad = ((i / kosu) * PI * hanni) + kakudo;
+                    float fx = (360 * cos(_rad)) + x;
+                    float fy = (360 * sin(_rad)) + y;
+                    //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
+                    tamas.push_back(tama(x, y,VECTOR{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                }
+                enemy_vector.x=-3;
+                enemy_vector.y=-1;
+            }else if(ene_frame==100){
+                enemy_vector.x=-3;
+                enemy_vector.y=1;
+            }else if(ene_frame==140){
+                enemy_vector.x=-3;
+                enemy_vector.y=-1;
+            }else if(ene_frame==180){
+                enemy_vector.x=-3;
+                enemy_vector.y=1;
+            }
+            y+=enemy_vector.y;
+            x+=enemy_vector.x;
+            break;
+
     }
 }
+
 void enemy::draw(){
-    DrawRotaGraphF((int)x,(int)y,1.4,0,graph,1);
+    //DrawFormatString((float)pl->x,(float)pl->y,GetColor(255,255,255),"%d",pl->y);
+    DrawRotaGraphF((int)x,(int)y,1.9,0,*graph,1);
 }
 enemy::~enemy() {
 
