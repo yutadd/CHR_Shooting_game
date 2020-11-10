@@ -213,7 +213,7 @@ void sce(){
         en.push_back(enemy(550, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(450, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(350, -50, 4, &enes[4], &tama_gra[24], &player1));
-        usleep(5000 * 1000);
+        usleep(3000 * 1000);
         //screen=0;
     }
 }
