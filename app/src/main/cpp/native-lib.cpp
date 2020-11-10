@@ -221,18 +221,21 @@ void controler(){
     while(true){
         for(int i=0;i<en.size();i++){
             en[i].control();
-        }
-        usleep(20*1000);
-    }
-}
-void controler_t(){
-    while(true){
-        for(int i=0;i<en.size();i++){
             for(int n=0;n<en[i].tamas.size();n++){
                 en[i].tamas[n].control();
             }
         }
         usleep(20*1000);
     }
+}
+void controler_t(){
+    /*while(true){
+        for(int i=0;i<en.size();i++){
+            for(int n=0;n<en[i].tamas.size();n++){
+                en[i].tamas[n].control();
+            }
+        }
+        usleep(20*1000);
+    }*/
 
 }

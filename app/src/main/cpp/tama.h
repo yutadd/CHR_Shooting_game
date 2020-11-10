@@ -5,16 +5,14 @@
 #include "vector"
 #ifndef TEST_DXLIB_TAMA_H
 #define TEST_DXLIB_TAMA_H
-
-
 class tama {
 public:
     int x=0,y=0;
     int* graph;
-    VECTOR tama_vector;
+    std::vector<double> tama_vector;
     int frame;
     tama();
-    tama(int x,int y,VECTOR vector,int* graph);
+    tama(int x,int y,std::vector<double> vector,int* graph);
     ~tama();
     void draw();
     void control();

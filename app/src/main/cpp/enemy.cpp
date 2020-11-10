@@ -48,15 +48,25 @@ void enemy::control(){
                 enemy_vector.x=2;
                 enemy_vector.y=4;
             }else if(ene_frame==60){
-                int kosu=4;
-                int kakudo=2;
+                /*int kosu=10;
                 for (double i = 0; i < kosu; i++) {
-                    double _rad = ((i / kosu) * PI * 2) + kakudo;
-                    float fx = (100 * cos(_rad)) + x;
-                    float fy = (100 * sin(_rad)) + y;
-                    float dx=(4*cos(_rad));
-                    float dy=(4*sin(_rad));
-                     tamas.push_back(tama(fx, fy,VECTOR{ dx,dy },tama_gra));
+                    double _rad = ((i / kosu) * PI * 2) + 0;
+                    double fx = (100 * cos(_rad)) + x;
+                    double fy = (100 * sin(_rad)) + y;
+                    double dx=(3*cos(_rad));
+                    double dy=(3*sin(_rad));
+                    std::vector<double> v={dx,dy};
+                    tamas.push_back(tama(fx, fy,v,tama_gra));
+                }*/
+                int kosu=9;
+                int kakudo=2;
+                float hanni=0.2;
+                for (double i = 0; i < kosu; i++) {
+                    double _rad = ((i / kosu) * PI * hanni) + kakudo;
+                    float fx = (360 * cos(_rad)) + x;
+                    float fy = (360 * sin(_rad)) + y;
+                    //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
                 }
                 enemy_vector.x=-3;
                 enemy_vector.y=2;
@@ -81,7 +91,7 @@ void enemy::control(){
                     float fx = (360 * cos(_rad)) + x;
                     float fy = (360 * sin(_rad)) + y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,VECTOR{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
                 }
                 enemy_vector.x=3;
                 enemy_vector.y=2;
@@ -106,7 +116,7 @@ void enemy::control(){
                     float fx = (360 * cos(_rad)) + x;
                     float fy = (360 * sin(_rad)) + y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,VECTOR{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
                 }
                 enemy_vector.x=3;
                 enemy_vector.y=-1;
@@ -137,7 +147,7 @@ void enemy::control(){
                     float fx = (360 * cos(_rad)) + x;
                     float fy = (360 * sin(_rad)) + y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,VECTOR{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
                 }
                 enemy_vector.x=-3;
                 enemy_vector.y=-1;
@@ -168,7 +178,7 @@ void enemy::control(){
                     double fx = (360 * cos(_rad)) + (float)x;
                     double fy = (360 * sin(_rad)) + (float)y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,VECTOR{ (float)(fx-(float)x)/60.0f,(float)(fy-(float)y)/60.0f },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (float)(fx-(float)x)/60.0f,(float)(fy-(float)y)/60.0f },tama_gra));
                 }
 
                 enemy_vector.x=0;

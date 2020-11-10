@@ -18,11 +18,11 @@ void tama::draw() {
 
 void tama::control() {
     frame++;
-    x+=tama_vector.x;
-    y+=tama_vector.y;
+    x+=tama_vector[0];
+    y+=tama_vector[1];
 }
 
-tama::tama(int x, int y, VECTOR vector, int* graph) {
+tama::tama(int x,int y,std::vector<double> vector, int* graph) {
     tama::x=x;
     tama::y=y;
     tama::tama_vector=vector;
