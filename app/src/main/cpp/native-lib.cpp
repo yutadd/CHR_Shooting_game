@@ -73,6 +73,7 @@ int android_main( void )
     while(ProcessMessage()==0){
 
         if(screen==0){
+            SetFontSize(20);
             int animation_kyara=0;
             int animation_title=0;
             int animation_start=1280;
@@ -218,15 +219,19 @@ void sce(){
     }
 }
 void controler(){
-    while(true){
+    while(screen==2){
         for(int i=0;i<en.size();i++){
             en[i].control();
             for(int n=0;n<en[i].tamas.size();n++){
                 en[i].tamas[n].control();
+                if(en[i].tamas[n].collision()){
+                    screen=0;
+                }
             }
         }
         usleep(20*1000);
     }
+    en.clear();
 }
 void controler_t(){
     /*while(true){

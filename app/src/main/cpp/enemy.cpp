@@ -48,6 +48,7 @@ void enemy::control(){
                 enemy_vector.x=2;
                 enemy_vector.y=4;
             }else if(ene_frame==60){
+
                 /*int kosu=10;
                 for (double i = 0; i < kosu; i++) {
                     double _rad = ((i / kosu) * PI * 2) + 0;
@@ -66,7 +67,7 @@ void enemy::control(){
                     float fx = (360 * cos(_rad)) + x;
                     float fy = (360 * sin(_rad)) + y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra,pl));
                 }
                 enemy_vector.x=-3;
                 enemy_vector.y=2;
@@ -91,7 +92,7 @@ void enemy::control(){
                     float fx = (360 * cos(_rad)) + x;
                     float fy = (360 * sin(_rad)) + y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra,pl));
                 }
                 enemy_vector.x=3;
                 enemy_vector.y=2;
@@ -116,7 +117,7 @@ void enemy::control(){
                     float fx = (360 * cos(_rad)) + x;
                     float fy = (360 * sin(_rad)) + y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra,pl));
                 }
                 enemy_vector.x=3;
                 enemy_vector.y=-1;
@@ -147,7 +148,7 @@ void enemy::control(){
                     float fx = (360 * cos(_rad)) + x;
                     float fy = (360 * sin(_rad)) + y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (fx-x)/60,(fy-y)/60 },tama_gra,pl));
                 }
                 enemy_vector.x=-3;
                 enemy_vector.y=-1;
@@ -178,7 +179,7 @@ void enemy::control(){
                     double fx = (360 * cos(_rad)) + (float)x;
                     double fy = (360 * sin(_rad)) + (float)y;
                     //komes.push_back(kome((float)x, (float)y, image, VECTOR{ (float)(center_x - x) / 140,(float)(center_y - y) / 140 }, false, 0));
-                    tamas.push_back(tama(x, y,std::vector<double>{ (float)(fx-(float)x)/60.0f,(float)(fy-(float)y)/60.0f },tama_gra));
+                    tamas.push_back(tama(x, y,std::vector<double>{ (float)(fx-(float)x)/60.0f,(float)(fy-(float)y)/60.0f },tama_gra,pl));
                 }
 
                 enemy_vector.x=0;
@@ -190,7 +191,6 @@ void enemy::control(){
             y+=enemy_vector.y;
             x+=enemy_vector.x;
             break;
-
     }
 }
 
