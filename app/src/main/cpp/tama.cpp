@@ -13,13 +13,13 @@ tama::tama() {
 }
 
 void tama::draw() {
-    DrawRotaGraphF((int)x,(int)y,4,0,*graph,1);
+    DrawRotaGraphF((int)x,(int)y,10,0,*graph,1);
 }
 
 void tama::control() {
     frame++;
-    x+=tama_vector[0];
-    y+=tama_vector[1];
+    x+=(int)tama_vector[0];
+    y+=(int)tama_vector[1];
 }
 
 tama::tama(int x,int y,std::vector<double> vector, int* graph,player* pl) {

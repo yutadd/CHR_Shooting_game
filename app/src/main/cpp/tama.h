@@ -11,7 +11,7 @@ class tama {
 public:
     int x=0,y=0;
     int* graph;
-    int size=10;
+    int size=14;
     player* pl;
     std::vector<double> tama_vector;
     int frame;

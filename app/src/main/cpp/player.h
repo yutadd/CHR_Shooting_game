@@ -2,12 +2,14 @@
 // Created by spyk4 on 2020/11/06.
 //
 #include "DxLib.h"
+#include "tama.h"
 #ifndef TEST_DXLIB_PLAYER_H
 #define TEST_DXLIB_PLAYER_H
 
 
 class player {
 public:
+    std::vector<tama> pl_tama;
     long score=0;
     long frames=0;
     int tama_pushing=0;

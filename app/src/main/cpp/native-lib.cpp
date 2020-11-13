@@ -147,7 +147,7 @@ int title_haikei;
                 GetTouchInput(touch_num, &tempx, &tempy);
                 if(GetTouchInputNum()>0) {
                     // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
-                    if(2790<tempx && 1110<tempy&&tempx<3468&&1400>tempy){
+                    if(2790<tempx && 1010<tempy&&tempx<3468&&1400>tempy){
                         screen=1;
                         break;
                     }
@@ -213,38 +213,31 @@ void sce(){
     while(true) {
         usleep(1000 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(1950, -100, 0, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1050, -100, 1, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(1950, -100, 0, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1050, -100, 1, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(650, -50, 0, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 1, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(650, -50, 0, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 1, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(650, -50, 2, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 3, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(650, -50, 2, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 3, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(650, -50, 2, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 3, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
         if (screen != 2)return;
         usleep(3000 * 1000);
-        en.push_back(enemy(650, -50, 4, &enes[4], &tama_gra[24], &player1));
-        en.push_back(enemy(550, -50, 4, &enes[4], &tama_gra[24], &player1));
-        en.push_back(enemy(450, -50, 4, &enes[4], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(1650, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(1350, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(1050, -50, 4, &enes[4], &tama_gra[24], &player1));
         usleep(3000 * 1000);
         //screen=0;
     }
