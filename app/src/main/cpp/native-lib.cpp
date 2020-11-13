@@ -27,7 +27,7 @@ int android_main( void )
 
     void controler();
     void controler_t();
-
+int title_haikei;
     int right;
     int taskbar;
     int vect;
@@ -37,12 +37,13 @@ int android_main( void )
     int normal;
     int hard;
     int level;
-    int fonts[63];
-    SetGraphMode( 1280 , 720, 32,60 ) ;
+    int fonts[75];
+    SetGraphMode( 3840 , 2160, 32,60 ) ;
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
     level=2;
-    back=LoadGraph("back2.png");
+    back=LoadGraph("haikei.png");
+    title_haikei=LoadGraph("haikei.jpg");
     easy=LoadGraph("easy.png");
     normal=LoadGraph("normal.png");
     hard=LoadGraph("hardl.png");
@@ -54,9 +55,55 @@ int android_main( void )
     taskbar=LoadGraph("taskbar.png");
     start_button=LoadGraph("start.bmp");
     LoadDivGraph("kyara.bmp",96,12,8,48,48,kyara);
-    LoadDivGraph("fontk2.png",64,16,4,22,35,fonts);
+    LoadDivGraph("font_.png",75,15,5,82,173,fonts);
     LoadDivGraph("enes.png",96,12,8,48,48,enes);
     LoadDivGraph("tama3.png",48,24,2,10,10,tama_gra);
+    int FontHandle = CreateFontToHandle( NULL, 16, 0 ) ;
+    AddFontImageToHandle(FontHandle,"1",fonts[0],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"2",fonts[1],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"3",fonts[2],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"4",fonts[3],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"5",fonts[4],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"6",fonts[5],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"7",fonts[6],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"8",fonts[7],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"9",fonts[8],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"0",fonts[9],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"a",fonts[10],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"b",fonts[11],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"c",fonts[12],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"d",fonts[13],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"e",fonts[14],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"f",fonts[15],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"g",fonts[16],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"h",fonts[17],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"i",fonts[18],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"j",fonts[19],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"k",fonts[20],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"l",fonts[21],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"m",fonts[22],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"n",fonts[23],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"o",fonts[24],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"p",fonts[25],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"q",fonts[26],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"r",fonts[27],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"s",fonts[28],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"t",fonts[29],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"u",fonts[30],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"v",fonts[31],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"w",fonts[32],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"x",fonts[33],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"y",fonts[34],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"z",fonts[35],0,0,82) ;
+    AddFontImageToHandle(FontHandle," ",fonts[36],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"!",fonts[37],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"%",fonts[38],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"(",fonts[39],0,0,82) ;
+    AddFontImageToHandle(FontHandle,")",fonts[40],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"-",fonts[41],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"@",fonts[42],0,0,82) ;
+    AddFontImageToHandle(FontHandle,":",fonts[69],0,0,82) ;
+
     // 描画先を裏画面にする
     SetDrawScreen( DX_SCREEN_BACK ) ;
     player1=player(kyara[38]);
@@ -76,36 +123,31 @@ int android_main( void )
             SetFontSize(20);
             int animation_kyara=0;
             int animation_title=0;
-            int animation_start=1280;
-            int animation_exit=1280;
+            int animation_start=3840;
+            int animation_exit=3840;
             while( ProcessMessage() == 0) {
-                if(animation_kyara<390)animation_kyara+=14;
-                if(animation_title<400)animation_title+=14;
-                if(animation_start>930)animation_start-=10;
-                if(animation_exit>900)animation_exit-=10;
+                if(animation_kyara<990)animation_kyara+=42;
+                if(animation_title<1200)animation_title+=42;
+                if(animation_start>2790)animation_start-=30;
+                if(animation_exit>2700)animation_exit-=30;
                 frames++;
                 ClearDrawScreen() ;
                 nowtime = GetNowHiPerformanceCount();
                 fps = 1000000 / (nowtime - time);
                 time = nowtime;
-                //back.png
-                //DrawRotaGraphF(640,360,1,0,back,false);
-                DrawGraph(0, 0, back,true);
-                //DrawRotaGraphF(1106,360,1,0,taskbar,false);
-                // タッチされている箇所の数だけ繰り返し
-                //DrawRotaGraphF(300, 400, 1.5, 0, kyara[11], true);
-                DrawRotaGraphF(animation_title, 200, 0.5, -0.5, title, true);
-                DrawGraph(animation_start, 370, start_button,true);
-                DrawGraph(animation_exit, 470, exit,true);
+                DrawGraph(0, 0, title_haikei,true);
+                DrawRotaGraphF(animation_title, 600, 1.5, -0.5, title, true);
+                DrawGraph(animation_start, 1010, start_button,true);
+                DrawGraph(animation_exit, 1410, exit,true);
                 // 裏画面の内容を表画面に反映
-                DrawFormatStringF(1000, 0, GetColor(255, 255, 255), "FPS:%i", fps);
-                DrawRotaGraphF(630, /*390+*/animation_kyara, 5, 0,kyara[1], true);
-                DrawRotaGraphF(630, 690, 0.9, 0, right, true);
+                DrawFormatStringF(3000, 0, GetColor(255, 255, 255), "FPS:%i", fps);
+                DrawRotaGraphF(1890, /*390+*/animation_kyara, 15, 0,kyara[1], true);
+                DrawRotaGraphF(1890, 2070, 0.9, 0, right, true);
                 ScreenFlip() ;
                 GetTouchInput(touch_num, &tempx, &tempy);
                 if(GetTouchInputNum()>0) {
                     // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
-                    if(930<tempx && 370<tempy&&tempx<1156&&442>tempy){
+                    if(2790<tempx && 1110<tempy&&tempx<3468&&1400>tempy){
                         screen=1;
                         break;
                     }
@@ -116,34 +158,24 @@ int android_main( void )
             while (ProcessMessage() == 0) {
                 frames++;
                 ClearDrawScreen();
-                DrawGraph(0, 0, back, true);
-                DrawGraph(350, 0, levels, true);
-                DrawGraph(450, 150, easy, true);
-                DrawGraph(450, 300, normal, true);
-                DrawGraph(450, 450, hard, true);
-                DrawRotaGraphF(150, 200+(150*level), 4, 0,kyara[26], true);
-                DrawRotaGraphF(1150, 200+(150*level), 4, 0,kyara[18], true);
+                DrawGraph(0, 0, title_haikei, true);
+                DrawGraph(1050, 0, levels, true);
+                DrawGraph(1350, 450, easy, true);
+                DrawGraph(1350, 900, normal, true);
+                DrawGraph(1350, 1350, hard, true);
+                DrawRotaGraphF(450, 600+(450*level), 12, 0,kyara[26], true);
+                DrawRotaGraphF(3450, 600+(450*level), 12, 0,kyara[18], true);
                 ScreenFlip();
                 GetTouchInput(touch_num, &tempx, &tempy);
                 if(GetTouchInputNum()>0) {
                     // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
-                    if(450<tempx && 150<tempy&&tempx<850&&300>tempy){
+                    if(1350<tempx && 450<tempy&&tempx<2550&&900>tempy){
                         screen=2;
                         break;
                     }
                 }
             }
         }else if(screen==2){
-
-            SetFontSize(50);
-            int FontHandle = CreateFontToHandle( NULL, 16, 0 ) ;
-            AddFontImageToHandle(FontHandle,"0",fonts[47],0,0,27) ;
-            AddFontImageToHandle(FontHandle,":",fonts[26],0,0,27) ;
-            AddFontImageToHandle(FontHandle,"s",fonts[51],0,-3,27) ;
-            AddFontImageToHandle(FontHandle,"c",fonts[35],0,0,27) ;
-            AddFontImageToHandle(FontHandle,"o",fonts[47],0,0,27) ;
-            AddFontImageToHandle(FontHandle,"r",fonts[50],0,-3,27) ;
-            AddFontImageToHandle(FontHandle,"e",fonts[37],0,0,27) ;
 
             std::thread th(sce);
             th.detach();
@@ -154,7 +186,7 @@ int android_main( void )
             while(ProcessMessage() == 0&&screen==2){
                 frames++;
                 ClearDrawScreen();
-                DrawGraph(0, 0, back, true);
+
                 player1.control();
                 for(int i=0;i<en.size();i++){
                     en[i].draw();
@@ -163,11 +195,10 @@ int android_main( void )
                     }
 
                 }
-                DrawRotaGraphF(1106,360,1,0,taskbar,false);
-                DrawGraph(1000, 500, vect, true);
-                SetFontSize(40);
-                DrawFormatStringToHandle(970,100,GetColor(255,255,255),FontHandle,"score",player1.score);
-                DrawFormatStringToHandle(1010,130,GetColor(255,255,255),FontHandle,"%d00000",player1.score);
+                DrawGraph(0, 0, back, true);
+                //DrawRotaGraphF(1106,360,1,0,taskbar,false);
+                //DrawGraph(1000, 500, vect, true);
+                DrawFormatStringToHandle(2600,390,GetColor(255,255,255),FontHandle,"score:%07d",player1.score);
                 ScreenFlip();
 
             }
@@ -182,12 +213,12 @@ void sce(){
     while(true) {
         usleep(1000 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(650, -50, 0, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 1, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -100, 0, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1050, -100, 1, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
-        en.push_back(enemy(650, -50, 0, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(350, -50, 1, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -100, 0, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1050, -100, 1, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
         if (screen != 2)return;
         en.push_back(enemy(650, -50, 0, &enes[1], &tama_gra[24], &player1));
