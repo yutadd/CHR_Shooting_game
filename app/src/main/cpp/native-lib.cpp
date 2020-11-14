@@ -1,5 +1,4 @@
 #include "DxLib.h"
-#include "scenario.h"
 #include "thread"
 #include "enemy.h"
 #include "vector"
@@ -160,9 +159,15 @@ int title_haikei;
                 ClearDrawScreen();
                 DrawGraph(0, 0, title_haikei, true);
                 DrawGraph(1050, 0, levels, true);
+                if(level!=0)SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
                 DrawGraph(1350, 450, easy, true);
+                if(level!=0)SetDrawBlendMode(DX_BLENDMODE_NOBLEND,100);
+                if(level!=1)SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
                 DrawGraph(1350, 900, normal, true);
+                if(level!=1)SetDrawBlendMode(DX_BLENDMODE_NOBLEND,100);
+                if(level!=2)SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
                 DrawGraph(1350, 1350, hard, true);
+                if(level!=2)SetDrawBlendMode(DX_BLENDMODE_NOBLEND,100);
                 DrawRotaGraphF(450, 600+(450*level), 12, 0,kyara[26], true);
                 DrawRotaGraphF(3450, 600+(450*level), 12, 0,kyara[18], true);
                 ScreenFlip();
@@ -170,7 +175,8 @@ int title_haikei;
                 if(GetTouchInputNum()>0) {
                     // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
                     if(1350<tempx && 450<tempy&&tempx<2550&&900>tempy){
-                        screen=2;
+                       level=0;
+                       screen=2;
                         break;
                     }
                 }

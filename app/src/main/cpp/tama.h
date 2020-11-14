@@ -1,3 +1,4 @@
+#pragma once
 //
 // Created by spyk4 on 2020/11/08.
 //
@@ -12,7 +13,6 @@ public:
     int x=0,y=0;
     int* graph;
     int size=14;
-    player* pl;
     std::vector<double> tama_vector;
     int frame;
     tama();

@@ -3,7 +3,7 @@
 //
 
 #include "tama.h"
-
+player* pla;
 tama::~tama() {
 
 }
@@ -23,7 +23,7 @@ void tama::control() {
 }
 
 tama::tama(int x,int y,std::vector<double> vector, int* graph,player* pl) {
-    tama::pl=pl;
+   pla=pl;
     tama::x=x;
     tama::y=y;
     tama::tama_vector=vector;
@@ -31,10 +31,10 @@ tama::tama(int x,int y,std::vector<double> vector, int* graph,player* pl) {
 }
 
 bool tama::collision() {
-    float a = pl->x - x;
-    float b = pl->y - y;
+    float a = pla->x - x;
+    float b = pla->y - y;
     float c = sqrt(a * a + b * b);
-    float sum_radius = pl->size + size;
+    float sum_radius = pla->size + size;
     if (c <= sum_radius)return true;
     return false;
 }
