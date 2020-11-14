@@ -13,6 +13,8 @@ public:
     long frames=0;
     int tama_pushing=0;
     int health=7;
+    int muteki=0;
+
     //int hart=LoadGraph("hart.png");
     int size=1;
     int x=500,y=500;

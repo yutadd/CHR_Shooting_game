@@ -12,6 +12,8 @@ int tama_gra[48];
 player player1;
 int senkai=0;
 int screen=0;
+int shougeki;
+
 int android_main( void )
 {
     int touch_num=0;
@@ -40,8 +42,8 @@ int android_main( void )
     int hard;
     int level;
     int title_bake;
-    int toku;
-    int ten;
+
+
     int fonts[75];
     int hart;
     int fonts_jp[2];
@@ -49,9 +51,8 @@ int android_main( void )
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
     level=0;
-    toku=LoadGraph("toku.png");
+    shougeki=LoadGraph("shougeki.png");
     hart=LoadGraph("hart.png");
-    ten=LoadGraph("ten.png");
     subtitle=LoadGraph("subtitle.png");
     mahou=LoadGraph("maho.png");
     back=LoadGraph("haikei.png");
@@ -176,6 +177,8 @@ int android_main( void )
             }
             //レベル選択
         }else if(screen==1) {
+            int step=0;
+            bool down=0;
             while (ProcessMessage() == 0) {
                 frames++;
                 ClearDrawScreen();
@@ -190,8 +193,18 @@ int android_main( void )
                 if(level!=2)SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
                 DrawGraph(1350, 1350, hard, true);
                 if(level!=2)SetDrawBlendMode(DX_BLENDMODE_NOBLEND,100);
-                DrawRotaGraphF(450, 600+(450*level), 12, 0,kyara[26], true);
-                DrawRotaGraphF(3450, 600+(450*level), 12, 0,kyara[18], true);
+                if(frames%9==0){
+                    if(step==2)down=true;
+                    if(step==0)down=false;
+                    if(down){
+                        step--;
+                    }else{
+                        step++;
+                    }
+                }
+
+                DrawRotaGraphF(450, 600+(450*level), 12, 0,kyara[27+step], true);
+                DrawRotaGraphF(3450, 600+(450*level), 12, 0,kyara[18+step], true);
                 ScreenFlip();
                 GetTouchInput(touch_num, &tempx, &tempy);
                 if(GetTouchInputNum()>0) {
@@ -204,18 +217,22 @@ int android_main( void )
                 }
             }
         }else if(screen==2){
+            en.clear();
             senkai++;
             std::thread th(sce);
             th.detach();
            double kaiten=0;
+           player1.health=7;
             std::thread th_2(controler);
             th_2.detach();
             std::thread th_3(controler_t);
             th_3.detach();
+
             while(ProcessMessage() == 0&&screen==2){
                 frames++;
                 ClearDrawScreen();
-                player1.control();
+                if(player1.muteki>0)DrawRotaGraph(player1.x,player1.y,150-player1.muteki,0,shougeki,true);
+                    player1.control();
                 for(int i=0;i<en.size();i++){
                     en[i].draw();
                     for(int n=0;n<en[i].tamas.size();n++){
@@ -277,6 +294,13 @@ void sce(){
         //screen=0;
     }
 }
+void moveplayer(){
+
+    for(player1.muteki=150;player1.muteki!=0;player1.muteki--){
+
+        usleep(20*1000);
+    }
+}
 void controler(){
     while(screen==2){
         for(int i=0;i<en.size();i++){
@@ -284,7 +308,11 @@ void controler(){
             for(int n=0;n<en[i].tamas.size();n++){
                 en[i].tamas[n].control();
                 if(en[i].tamas[n].collision()){
-                    player1.health--;
+                    if(player1.muteki==0){
+                        std::thread th_(moveplayer);
+                        th_.detach();
+                        player1.health--;
+                    }
                     if(player1.health<=0){
                         screen=0;
                     }
@@ -293,7 +321,6 @@ void controler(){
         }
         usleep(20*1000);
     }
-    en.clear();
 }
 void controler_t(){
     /*while(true){
