@@ -12,7 +12,7 @@ class tama {
 public:
     int x=0,y=0;
     int* graph;
-    int size=15;
+    int size=30;
     std::vector<double> tama_vector;
     int frame;
     tama();

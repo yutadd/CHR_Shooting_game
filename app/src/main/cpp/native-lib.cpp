@@ -10,6 +10,7 @@ int kyara[96];
 int enes[96];
 int tama_gra[48];
 player player1;
+int senkai=0;
 int screen=0;
 int android_main( void )
 {
@@ -28,6 +29,7 @@ int android_main( void )
     void controler_t();
     int title_haikei;
     int right;
+
     int taskbar;
     int vect;
     int levels;
@@ -122,7 +124,6 @@ int android_main( void )
 
     bool title_b=false;
     while(ProcessMessage()==0){
-
         if(screen==0){
             SetFontSize(20);
             int animation_kyara=0;
@@ -130,8 +131,8 @@ int android_main( void )
             int animation_start=3840;
             int animation_exit=3840;
             while( ProcessMessage() == 0) {
-                if(animation_kyara<990)animation_kyara+=42;
-                if(animation_title<2900)animation_title+=42;
+                if(animation_kyara<1200)animation_kyara+=42;
+                if(animation_title<2000)animation_title+=42;
                 if(animation_start>2790)animation_start-=30;
                 if(animation_exit>2700)animation_exit-=30;
                 frames++;
@@ -145,9 +146,9 @@ int android_main( void )
                 DrawLine(animation_title-600,480 ,animation_title+700,480,GetColor(255,255,255));
                 DrawRotaGraphF(animation_title+110, 550, 2.2, 0, subtitle, true);
                  */
-                DrawRotaGraphF(animation_title, 480, 2.1, 0, title_bake, true);
-                DrawGraph(animation_start, 1010, start_button,true);
-                DrawGraph(animation_exit, 1410, exit,true);
+                DrawRotaGraphF(animation_title, 400, 2.8, 0, title_bake, true);
+                DrawGraph(animation_start, 1210, start_button,true);
+                DrawGraph(animation_exit, 1610, exit,true);
                 // 裏画面の内容を表画面に反映
                 DrawFormatStringF(3000, 0, GetColor(255, 255, 255), "FPS:%i", fps);
                 DrawRotaGraphF(800, /*390+*/animation_kyara, 19, 0,kyara[1], true);
@@ -192,10 +193,10 @@ int android_main( void )
                 }
             }
         }else if(screen==2){
-
+            senkai++;
             std::thread th(sce);
             th.detach();
-            int kaiten=0;
+           double kaiten=0;
             std::thread th_2(controler);
             th_2.detach();
             std::thread th_3(controler_t);
@@ -211,14 +212,13 @@ int android_main( void )
                     }
                 }
                 SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
-                if(frames%5==0)kaiten++;
+                if(frames%2==0)kaiten+=0.1;
                 DrawRotaGraph(player1.x,player1.y,7,kaiten,mahou,true);
                 SetDrawBlendMode(DX_BLENDMODE_NOBLEND,255);
                 DrawGraph(0, 0, back, true);
-
                 //DrawRotaGraphF(1106,360,1,0,taskbar,false);
                 //DrawGraph(1000, 500, vect, true);
-                DrawFormatStringToHandle(2600,390,GetColor(255,255,255),FontHandle,"score:%07d",player1.score);
+                DrawFormatStringToHandle(2500,390,GetColor(255,255,255),FontHandle,"得点   %07d",player1.score);
                 ScreenFlip();
 
             }
@@ -230,30 +230,31 @@ int android_main( void )
     return 0 ;
 }
 void sce(){
+    int se=senkai;
     while(true) {
         usleep(1000 * 1000);
-        if (screen != 2)return;
+        if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
-        if (screen != 2)return;
+        if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
-        if (screen != 2)return;
+        if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
-        if (screen != 2)return;
+        if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
-        if (screen != 2)return;
+        if (se != senkai)return;
         en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
-        if (screen != 2)return;
+        if (se != senkai)return;
         en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
-        if (screen != 2)return;
+        if (se != senkai)return;
         en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
-        if (screen != 2)return;
         usleep(3000 * 1000);
+        if (se != senkai)return;
         en.push_back(enemy(1950, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(1650, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(1350, -50, 4, &enes[4], &tama_gra[24], &player1));
