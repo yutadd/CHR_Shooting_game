@@ -40,11 +40,18 @@ int android_main( void )
     int hard;
     int level;
     int title_bake;
+    int toku;
+    int ten;
     int fonts[75];
+    int hart;
+    int fonts_jp[2];
     SetGraphMode( 3840 , 2160, 32,60 ) ;
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
     level=0;
+    toku=LoadGraph("toku.png");
+    hart=LoadGraph("hart.png");
+    ten=LoadGraph("ten.png");
     subtitle=LoadGraph("subtitle.png");
     mahou=LoadGraph("maho.png");
     back=LoadGraph("haikei.png");
@@ -62,6 +69,7 @@ int android_main( void )
     start_button=LoadGraph("start.bmp");
     LoadDivGraph("kyara.bmp",96,12,8,48,48,kyara);
     LoadDivGraph("font_.png",75,15,5,82,173,fonts);
+    LoadDivGraph("font_jp.png",2,2,1,196,180,fonts_jp);
     LoadDivGraph("enes.png",96,12,8,48,48,enes);
     LoadDivGraph("tama3.png",48,24,2,10,10,tama_gra);
     int FontHandle = CreateFontToHandle( NULL, 16, 0 ) ;
@@ -109,6 +117,9 @@ int android_main( void )
     AddFontImageToHandle(FontHandle,"-",fonts[41],0,0,82) ;
     AddFontImageToHandle(FontHandle,"@",fonts[42],0,0,82) ;
     AddFontImageToHandle(FontHandle,":",fonts[69],0,0,82) ;
+    AddFontImageToHandle(FontHandle,"得",fonts_jp[0],0,0,180) ;
+    AddFontImageToHandle(FontHandle,"点",fonts_jp[1],0,0,180) ;
+    AddFontImageToHandle(FontHandle,"♥",hart,0,0,92) ;
 
     // 描画先を裏画面にする
     SetDrawScreen( DX_SCREEN_BACK ) ;
@@ -218,7 +229,10 @@ int android_main( void )
                 DrawGraph(0, 0, back, true);
                 //DrawRotaGraphF(1106,360,1,0,taskbar,false);
                 //DrawGraph(1000, 500, vect, true);
-                DrawFormatStringToHandle(2500,390,GetColor(255,255,255),FontHandle,"得点   %07d",player1.score);
+                for(int i=0;i<player1.health;i++){
+                    DrawStringToHandle(2500+(92*i),400,"♥",GetColor(255,255,255),FontHandle);
+                }
+                DrawFormatStringToHandle(2500,200,GetColor(255,255,255),FontHandle,"得点   %07d",player1.score);
                 ScreenFlip();
 
             }
@@ -270,7 +284,10 @@ void controler(){
             for(int n=0;n<en[i].tamas.size();n++){
                 en[i].tamas[n].control();
                 if(en[i].tamas[n].collision()){
-                    screen=0;
+                    player1.health--;
+                    if(player1.health<=0){
+                        screen=0;
+                    }
                 }
             }
         }

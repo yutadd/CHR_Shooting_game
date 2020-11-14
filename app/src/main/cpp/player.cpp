@@ -27,5 +27,6 @@ void player::control() {
         }
     }
 
+
     DrawRotaGraphF(x,y,3.2,0,pkyara,1);
 }
