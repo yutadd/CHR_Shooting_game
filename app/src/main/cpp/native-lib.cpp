@@ -26,23 +26,28 @@ int android_main( void )
 
     void controler();
     void controler_t();
-int title_haikei;
+    int title_haikei;
     int right;
     int taskbar;
     int vect;
     int levels;
     int easy;
-
+    int mahou;
+    int subtitle;
     int normal;
     int hard;
     int level;
+    int title_bake;
     int fonts[75];
     SetGraphMode( 3840 , 2160, 32,60 ) ;
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
-    level=2;
+    level=0;
+    subtitle=LoadGraph("subtitle.png");
+    mahou=LoadGraph("maho.png");
     back=LoadGraph("haikei.png");
     title_haikei=LoadGraph("haikei.jpg");
+    title_bake=LoadGraph("title_bake.png");
     easy=LoadGraph("easy.png");
     normal=LoadGraph("normal.png");
     hard=LoadGraph("hardl.png");
@@ -126,7 +131,7 @@ int title_haikei;
             int animation_exit=3840;
             while( ProcessMessage() == 0) {
                 if(animation_kyara<990)animation_kyara+=42;
-                if(animation_title<1200)animation_title+=42;
+                if(animation_title<2900)animation_title+=42;
                 if(animation_start>2790)animation_start-=30;
                 if(animation_exit>2700)animation_exit-=30;
                 frames++;
@@ -135,12 +140,17 @@ int title_haikei;
                 fps = 1000000 / (nowtime - time);
                 time = nowtime;
                 DrawGraph(0, 0, title_haikei,true);
-                DrawRotaGraphF(animation_title, 600, 1.5, -0.5, title, true);
+                /*DrawRotaGraph(animation_title,350,15,0,mahou,true);
+                DrawRotaGraphF(animation_title, 350, 1.5, 0.2, title, true);
+                DrawLine(animation_title-600,480 ,animation_title+700,480,GetColor(255,255,255));
+                DrawRotaGraphF(animation_title+110, 550, 2.2, 0, subtitle, true);
+                 */
+                DrawRotaGraphF(animation_title, 480, 2.1, 0, title_bake, true);
                 DrawGraph(animation_start, 1010, start_button,true);
                 DrawGraph(animation_exit, 1410, exit,true);
                 // 裏画面の内容を表画面に反映
                 DrawFormatStringF(3000, 0, GetColor(255, 255, 255), "FPS:%i", fps);
-                DrawRotaGraphF(1890, /*390+*/animation_kyara, 15, 0,kyara[1], true);
+                DrawRotaGraphF(800, /*390+*/animation_kyara, 19, 0,kyara[1], true);
                 DrawRotaGraphF(1890, 2070, 0.9, 0, right, true);
                 ScreenFlip() ;
                 GetTouchInput(touch_num, &tempx, &tempy);
@@ -185,6 +195,7 @@ int title_haikei;
 
             std::thread th(sce);
             th.detach();
+            int kaiten=0;
             std::thread th_2(controler);
             th_2.detach();
             std::thread th_3(controler_t);
@@ -192,16 +203,19 @@ int title_haikei;
             while(ProcessMessage() == 0&&screen==2){
                 frames++;
                 ClearDrawScreen();
-
                 player1.control();
                 for(int i=0;i<en.size();i++){
                     en[i].draw();
                     for(int n=0;n<en[i].tamas.size();n++){
                         en[i].tamas[n].draw();
                     }
-
                 }
+                SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
+                if(frames%5==0)kaiten++;
+                DrawRotaGraph(player1.x,player1.y,7,kaiten,mahou,true);
+                SetDrawBlendMode(DX_BLENDMODE_NOBLEND,255);
                 DrawGraph(0, 0, back, true);
+
                 //DrawRotaGraphF(1106,360,1,0,taskbar,false);
                 //DrawGraph(1000, 500, vect, true);
                 DrawFormatStringToHandle(2600,390,GetColor(255,255,255),FontHandle,"score:%07d",player1.score);
