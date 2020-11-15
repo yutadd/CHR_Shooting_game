@@ -21,6 +21,7 @@ public:
     int* graph;
     int* tama_gra;
     int ene_frame=0;
+    bool isdead=false;
     int gazo=LoadGraph("exit.bmp");
 //vector<kome>;
     VECTOR enemy_vector;
