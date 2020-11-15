@@ -13,8 +13,11 @@ player player1;
 int senkai=0;
 int screen=0;
 int shougeki;
+int shougeki2;
 int ptama_graph[14];
 std::vector<tama> ptama;
+int mahou;
+
 int android_main( void )
 {
     int touch_num=0;
@@ -32,19 +35,19 @@ int android_main( void )
     void controler_t();
     int title_haikei;
     int right;
-int zin;
+    int zin;
     int taskbar;
     int vect;
     int levels;
     int easy;
-    int mahou;
+
     int subtitle;
     int normal;
     int hard;
     int level;
     int title_bake;
 
-int fonts_small[75];
+    int fonts_small[75];
     int fonts[75];
     int hart;
     int fonts_jp[2];
@@ -52,8 +55,8 @@ int fonts_small[75];
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
     level=0;
-    zin=LoadGraph("zin.png");
-
+    zin=LoadGraph("zin2.png");
+shougeki2=LoadGraph("shougeki2.png");
     shougeki=LoadGraph("shougeki.png");
     hart=LoadGraph("hart.png");
     subtitle=LoadGraph("subtitle.png");
@@ -214,8 +217,8 @@ int fonts_small[75];
                 if(GetTouchInputNum()>0) {
                     // タッチされている箇所の座標を取得し、ボタンの範囲内だったらスタートする
                     if(1350<tempx && 450<tempy&&tempx<2550&&900>tempy){
-                       level=0;
-                       screen=2;
+                        level=0;
+                        screen=2;
                         break;
                     }
                 }
@@ -225,8 +228,8 @@ int fonts_small[75];
             senkai++;
             std::thread th(sce);
             th.detach();
-           double kaiten=0;
-           player1.health=7;
+            double kaiten=0;
+            player1.health=7;
             std::thread th_2(controler);
             th_2.detach();
             std::thread th_3(controler_t);
@@ -236,10 +239,18 @@ int fonts_small[75];
                 frames++;
                 ClearDrawScreen();
                 if(player1.muteki>0)DrawRotaGraph(player1.x,player1.y,150-player1.muteki,0,shougeki,true);
-                    player1.control();
+                player1.control();
 
                 for(int i=0;i<en.size();i++){
                     en[i].draw();
+                    if(en[i].dieing!=-1&&en[i].dieing!=-2){
+                        en[i].dieing-=1;
+                        DrawRotaGraph(en[i].x,en[i].y,(5-en[i].dieing),en[i].dieing,shougeki2,true);
+                        if(en[i].dieing==0){
+                            en[i].dieing=-2;
+                            en[i].isdead=true;
+                        }
+                    }
                     for(int n=0;n<en[i].tamas.size();n++){
                         en[i].tamas[n].draw();
                     }
@@ -259,7 +270,7 @@ int fonts_small[75];
                     DrawRotaGraph(3200+(92*i),500,0.7,0,hart,true);
                 }
                 DrawFormatStringToHandle(2500,200,GetColor(255,255,255),FontHandle,"得点   %07d",player1.score);
-                DrawRotaGraph(3100,1500,2,0,zin,true);
+                DrawRotaGraph(3100,1500,1,0,zin,true);
                 ScreenFlip();
 
             }
@@ -273,7 +284,6 @@ int fonts_small[75];
 void sce(){
     int se=senkai;
     while(true) {
-
         if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(500 * 1000);
@@ -363,28 +373,36 @@ void sce(){
         usleep(5000 * 1000);
     }
 }
-void moveplayer(){
-
+void damage_player(){
     for(player1.muteki=150;player1.muteki!=0;player1.muteki--){
-
         usleep(20*1000);
     }
+}
+void die_en(int ite){
+    for(int kaiten=0;kaiten<100;kaiten++){
+
+        DrawRotaGraph(player1.x,player1.y,kaiten/10,kaiten,shougeki,true);
+        usleep(20*1000);
+    }
+
+    en[ite].isdead=true;
 }
 void controler(){
 
     long frames=0;
     while(screen==2){
-        if(frames%3==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{0,-80},&ptama_graph[0],&player1,true));
-        if(frames%3==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{-25,-55},&ptama_graph[0],&player1,true));
-        if(frames%3==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{25,-55},&ptama_graph[0],&player1,true));
+        if(frames%4==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{0,-50},&ptama_graph[0],&player1,true));
+        if(frames%4==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{-15,-35},&ptama_graph[0],&player1,true));
+        if(frames%10000)for(int i=0;i<ptama.size();){if(ptama[i].x<0&&ptama[i].y<-0&&ptama[i].x>2160&&ptama[i].y>3840){ptama.erase(ptama.begin());}else{i++;}}
+        if(frames%4==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{15,-35},&ptama_graph[0],&player1,true));
         frames++;
         for(int i=0;i<en.size();i++){
             en[i].control();
             for(int n=0;n<en[i].tamas.size();n++){
                 en[i].tamas[n].control();
-                if(en[i].tamas[n].collision()){
+                if(en[i].tamas[n].collision(player1.x,player1.y)){
                     if(player1.muteki==0){
-                        std::thread th_(moveplayer);
+                        std::thread th_(damage_player);
                         th_.detach();
                         player1.health--;
                     }
@@ -396,6 +414,15 @@ void controler(){
         }
         for(int i=0;i<ptama.size();i++){
             ptama[i].control();
+            for(int n=0;n<en.size();n++){
+                if(ptama[i].collision(en[n].x,en[n].y)){
+                    if(en[n].dieing==-1){
+                        en[n].dieing=5;
+                        player1.score+=10;
+                    }
+                }
+            }
+
         }
         usleep(20*1000);
     }

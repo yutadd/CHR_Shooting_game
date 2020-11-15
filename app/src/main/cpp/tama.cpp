@@ -30,12 +30,13 @@ tama::tama(int x,int y,std::vector<double> vector, int* graph,player* pl,bool mi
     tama::x=x;
     tama::y=y;
     tama::tama_vector=vector;
+    if(mikata)size=60;
     tama::graph=graph;
 }
 
-bool tama::collision() {
-    float a = pla->x - x;
-    float b = pla->y - y;
+bool tama::collision(int fx,int fy) {
+    float a = fx - x;
+    float b = fy - y;
     float c = sqrt(a * a + b * b);
     float sum_radius = pla->size + size;
     if (c <= sum_radius)return true;

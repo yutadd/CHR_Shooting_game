@@ -19,6 +19,7 @@ public:
     int x,y;
     int type;
     int* graph;
+    int dieing=-1;
     int* tama_gra;
     int ene_frame=0;
     bool isdead=false;

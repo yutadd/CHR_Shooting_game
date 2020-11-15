@@ -21,7 +21,7 @@ public:
     ~tama();
     void draw();
     void control();
-    bool collision();
+    bool collision(int fx,int fy);
 };
 
 
