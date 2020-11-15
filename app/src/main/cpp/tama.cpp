@@ -13,20 +13,32 @@ tama::tama() {
 }
 
 void tama::draw() {
-    if(mikata) SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
+    if(mikata) {
+        SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
+    }else{
+        if(frame<20){
+            SetDrawBlendMode(DX_BLENDMODE_ADD,255);
+            DrawRotaGraphF((int)x,(int)y,20-frame,0,*graph,1);
+        }
+    }
+
     DrawRotaGraphF((int)x,(int)y,11,0,*graph,1);
-    if(mikata) SetDrawBlendMode(DX_BLENDMODE_NOBLEND,100);
+    if(mikata) {
+        SetDrawBlendMode(DX_BLENDMODE_NOBLEND,100);
+    }
 }
 
 void tama::control() {
     frame++;
-    x+=(int)tama_vector[0];
-    y+=(int)tama_vector[1];
+    if(mikata||not(frame<5)) {
+        x += (int) tama_vector[0];
+        y += (int) tama_vector[1];
+    }
 }
 
 tama::tama(int x,int y,std::vector<double> vector, int* graph,player* pl,bool mikata) {
     tama::mikata=mikata;
-   pla=pl;
+    pla=pl;
     tama::x=x;
     tama::y=y;
     tama::tama_vector=vector;

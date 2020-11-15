@@ -234,13 +234,13 @@ shougeki2=LoadGraph("shougeki2.png");
             th_2.detach();
             std::thread th_3(controler_t);
             th_3.detach();
-
+            int font01;
+            font01  = CreateFontToHandle( "ＭＳ ゴシック", 120,  9, DX_FONTTYPE_NORMAL,-1,0,false);           //"MSゴシック"の50pt,太さ9のフォントを作成
             while(ProcessMessage() == 0&&screen==2){
                 frames++;
                 ClearDrawScreen();
                 if(player1.muteki>0)DrawRotaGraph(player1.x,player1.y,150-player1.muteki,0,shougeki,true);
                 player1.control();
-
                 for(int i=0;i<en.size();i++){
                     en[i].draw();
                     if(en[i].dieing!=-1&&en[i].dieing!=-2){
@@ -265,14 +265,16 @@ shougeki2=LoadGraph("shougeki2.png");
                 DrawGraph(0, 0, back, true);
                 //DrawRotaGraphF(1106,360,1,0,taskbar,false);
                 //DrawGraph(1000, 500, vect, true);
-                DrawFormatStringToHandle(2400,400,GetColor(255,255,255),FontHandle,"player");
+
+                DrawFormatStringToHandle(2400,400,GetColor(0,0,0),font01,"player");
+                DrawFormatStringToHandle(2395,390,GetColor(255,255,255),font01,"player");
                 for(int i=0;i<player1.health;i++){
-                    DrawRotaGraph(3200+(92*i),500,0.7,0,hart,true);
+                    DrawRotaGraph(3000+(92*i),500,0.7,0,hart,true);
                 }
-                DrawFormatStringToHandle(2500,200,GetColor(255,255,255),FontHandle,"得点   %07d",player1.score);
+                DrawFormatStringToHandle(2400,200,GetColor(0,0,0),font01,"得点        %07d",player1.score);
+                DrawFormatStringToHandle(2395,190,GetColor(255,255,255),font01,"得点        %07d",player1.score);
                 DrawRotaGraph(3100,1500,1,0,zin,true);
                 ScreenFlip();
-
             }
         }
     }
@@ -360,15 +362,15 @@ void sce(){
         en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
         en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
         usleep(2000 * 1000);
-        en.push_back(enemy(200, -50, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(600, -50, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(850, -50, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1000, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(100, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(400, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(650, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(800, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1000, -150, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(1200, -150, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1400, -150, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1500, -200, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(2300, -150, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(2400, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1350, -200, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(2150, -150, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(2250, -50, 7, &enes[1], &tama_gra[24], &player1));
         //screen=0;
         usleep(5000 * 1000);
     }
@@ -390,11 +392,13 @@ void die_en(int ite){
 void controler(){
 
     long frames=0;
+    //50fps
     while(screen==2){
-        if(frames%4==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{0,-50},&ptama_graph[0],&player1,true));
-        if(frames%4==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{-15,-35},&ptama_graph[0],&player1,true));
-        if(frames%10000)for(int i=0;i<ptama.size();){if(ptama[i].x<0&&ptama[i].y<-0&&ptama[i].x>2160&&ptama[i].y>3840){ptama.erase(ptama.begin());}else{i++;}}
-        if(frames%4==0)ptama.push_back(tama(player1.x,player1.y,std::vector<double>{15,-35},&ptama_graph[0],&player1,true));
+        if(frames%4==0)ptama.push_back(tama(player1.x,player1.y-120,std::vector<double>{0,-50},&ptama_graph[0],&player1,true));
+        if(frames%4==0)ptama.push_back(tama(player1.x-80,player1.y,std::vector<double>{-15,-35},&ptama_graph[0],&player1,true));
+        if(frames%1000)for(int i=0;i<ptama.size();){if(ptama[i].x<0&&ptama[i].y<-0&&ptama[i].x>2160&&ptama[i].y>3840){ptama.erase(ptama.begin()+i);}else{i++;}}
+        if(frames%1000)for(int i=0;i<en.size();i++){for(int n=0;n<en[i].tamas.size();){if(en[i].tamas[n].x<0&&en[i].tamas[n].y<-0&&en[i].tamas[n].x>2160&&en[i].tamas[n].y>3840){en[i].tamas.erase(en[i].tamas.begin()+n);}else{n++;}}}
+        if(frames%4==0)ptama.push_back(tama(player1.x+80,player1.y,std::vector<double>{15,-35},&ptama_graph[0],&player1,true));
         frames++;
         for(int i=0;i<en.size();i++){
             en[i].control();
