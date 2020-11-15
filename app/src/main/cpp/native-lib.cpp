@@ -396,9 +396,9 @@ void controler(){
     while(screen==2){
         if(frames%4==0)ptama.push_back(tama(player1.x,player1.y-120,std::vector<double>{0,-50},&ptama_graph[0],&player1,true));
         if(frames%4==0)ptama.push_back(tama(player1.x-80,player1.y,std::vector<double>{-15,-35},&ptama_graph[0],&player1,true));
-        if(frames%1000)for(int i=0;i<ptama.size();){if(ptama[i].x<0&&ptama[i].y<-0&&ptama[i].x>2160&&ptama[i].y>3840){ptama.erase(ptama.begin()+i);}else{i++;}}
-        if(frames%1000)for(int i=0;i<en.size();i++){for(int n=0;n<en[i].tamas.size();){if(en[i].tamas[n].x<0&&en[i].tamas[n].y<-0&&en[i].tamas[n].x>2160&&en[i].tamas[n].y>3840){en[i].tamas.erase(en[i].tamas.begin()+n);}else{n++;}}}
         if(frames%4==0)ptama.push_back(tama(player1.x+80,player1.y,std::vector<double>{15,-35},&ptama_graph[0],&player1,true));
+        if(frames%1000)for(int i=0;i<ptama.size();){if(ptama[i].x<0||ptama[i].y<0||ptama[i].x>3840||ptama[i].y>2160){ptama.erase(ptama.begin()+i);}else{i++;}}
+        if(frames%1000)for(int i=0;i<en.size();i++){for(int n=0;n<en[i].tamas.size();){if(en[i].tamas[n].x<0||en[i].tamas[n].y<0||en[i].tamas[n].x>2160||en[i].tamas[n].y>3840){en[i].tamas.erase(en[i].tamas.begin()+n);}else{n++;}}}
         frames++;
         for(int i=0;i<en.size();i++){
             en[i].control();

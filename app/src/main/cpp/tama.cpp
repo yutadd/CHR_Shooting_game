@@ -42,7 +42,7 @@ tama::tama(int x,int y,std::vector<double> vector, int* graph,player* pl,bool mi
     tama::x=x;
     tama::y=y;
     tama::tama_vector=vector;
-    if(mikata)size=60;
+    if(mikata)size=40;
     tama::graph=graph;
 }
 
