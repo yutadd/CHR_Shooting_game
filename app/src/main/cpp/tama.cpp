@@ -18,11 +18,11 @@ void tama::draw() {
     }else{
         if(frame<20){
             SetDrawBlendMode(DX_BLENDMODE_ADD,255);
-            DrawRotaGraphF((int)x,(int)y,20-frame,0,*graph,1);
+            DrawRotaGraphF(x,y,20-frame,0,*graph,1);
         }
     }
 
-    DrawRotaGraphF((int)x,(int)y,11,0,*graph,1);
+    DrawRotaGraphF(x,y,11,0,*graph,1);
     if(mikata) {
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND,100);
     }
@@ -31,8 +31,8 @@ void tama::draw() {
 void tama::control() {
     frame++;
     if(mikata||not(frame<5)) {
-        x += (int) tama_vector[0];
-        y += (int) tama_vector[1];
+        x +=  tama_vector[0];
+        y += tama_vector[1];
     }
 }
 

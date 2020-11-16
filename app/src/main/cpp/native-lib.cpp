@@ -4,7 +4,10 @@
 #include "vector"
 #include "unistd.h"
 #include "player.h"
-
+/*TODO:
+ * 敵にHPを追加。
+ * 処理の最適化
+ * */
 std::vector<enemy> en;
 int kyara[96];
 int enes[96];
@@ -17,7 +20,7 @@ int shougeki2;
 int ptama_graph[14];
 std::vector<tama> ptama;
 int mahou;
-
+int ususa=0;
 int android_main( void )
 {
     int touch_num=0;
@@ -25,14 +28,10 @@ int android_main( void )
     int back;
     int frames=0;
     int title;
-
     int start_button;
-
     int exit;
     void sce();
-
     void controler();
-    void controler_t();
     int title_haikei;
     int right;
     int zin;
@@ -40,13 +39,11 @@ int android_main( void )
     int vect;
     int levels;
     int easy;
-
     int subtitle;
     int normal;
     int hard;
     int level;
     int title_bake;
-
     int fonts_small[75];
     int fonts[75];
     int hart;
@@ -160,11 +157,6 @@ shougeki2=LoadGraph("shougeki2.png");
                 fps = 1000000 / (nowtime - time);
                 time = nowtime;
                 DrawGraph(0, 0, title_haikei,true);
-                /*DrawRotaGraph(animation_title,350,15,0,mahou,true);
-                DrawRotaGraphF(animation_title, 350, 1.5, 0.2, title, true);
-                DrawLine(animation_title-600,480 ,animation_title+700,480,GetColor(255,255,255));
-                DrawRotaGraphF(animation_title+110, 550, 2.2, 0, subtitle, true);
-                 */
                 DrawRotaGraphF(animation_title, 400, 2.8, 0, title_bake, true);
                 DrawGraph(animation_start, 1210, start_button,true);
                 DrawGraph(animation_exit, 1610, exit,true);
@@ -232,20 +224,26 @@ shougeki2=LoadGraph("shougeki2.png");
             player1.health=7;
             std::thread th_2(controler);
             th_2.detach();
-            std::thread th_3(controler_t);
-            th_3.detach();
             int font01;
             font01  = CreateFontToHandle( "ＭＳ ゴシック", 120,  9, DX_FONTTYPE_NORMAL,-1,0,false);           //"MSゴシック"の50pt,太さ9のフォントを作成
+
             while(ProcessMessage() == 0&&screen==2){
                 frames++;
                 ClearDrawScreen();
-                if(player1.muteki>0)DrawRotaGraph(player1.x,player1.y,150-player1.muteki,0,shougeki,true);
+                if(player1.muteki>0){
+                        SetDrawBlendMode(DX_BLENDMODE_ALPHA,255-ususa);
+                        ususa+=20;
+                        DrawRotaGraph(player1.x,player1.y,150-player1.muteki,0,shougeki,true);
+                        SetDrawBlendMode(DX_BLENDMODE_NOBLEND,200);
+                }
                 player1.control();
                 for(int i=0;i<en.size();i++){
                     en[i].draw();
                     if(en[i].dieing!=-1&&en[i].dieing!=-2){
                         en[i].dieing-=1;
-                        DrawRotaGraph(en[i].x,en[i].y,(5-en[i].dieing),en[i].dieing,shougeki2,true);
+                        SetDrawBlendMode(DX_BLENDMODE_ALPHA,255-en[i].ususa);
+                        en[i].ususa+=25;
+                        DrawRotaGraph(en[i].x,en[i].y,(double)(10-en[i].dieing)/2.0,en[i].dieing,shougeki2,true);
                         if(en[i].dieing==0){
                             en[i].dieing=-2;
                             en[i].isdead=true;
@@ -263,9 +261,6 @@ shougeki2=LoadGraph("shougeki2.png");
                 DrawRotaGraph(player1.x,player1.y,7,kaiten,mahou,true);
                 SetDrawBlendMode(DX_BLENDMODE_NOBLEND,255);
                 DrawGraph(0, 0, back, true);
-                //DrawRotaGraphF(1106,360,1,0,taskbar,false);
-                //DrawGraph(1000, 500, vect, true);
-
                 DrawFormatStringToHandle(2400,400,GetColor(0,0,0),font01,"player");
                 DrawFormatStringToHandle(2395,390,GetColor(255,255,255),font01,"player");
                 for(int i=0;i<player1.health;i++){
@@ -288,25 +283,34 @@ void sce(){
     while(true) {
         if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        usleep(400 * 1000);
+        if (se != senkai)return;
+        en.push_back(enemy(1850, -50, 0, &enes[1], &tama_gra[24], &player1));
+        usleep(400 * 1000);
+        if (se != senkai)return;
+        en.push_back(enemy(1850, -50, 0, &enes[1], &tama_gra[24], &player1));
+        usleep(400 * 1000);
         if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        usleep(400 * 1000);
         if (se != senkai)return;
         en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        usleep(400 * 1000);
         if (se != senkai)return;
-        en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        en.push_back(enemy(650, -50, 1, &enes[1], &tama_gra[24], &player1));
+        usleep(400 * 1000);
         if (se != senkai)return;
-        en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        en.push_back(enemy(750, -50, 1, &enes[1], &tama_gra[24], &player1));
+        usleep(400 * 1000);
         if (se != senkai)return;
-        en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        en.push_back(enemy(650, -50, 1, &enes[1], &tama_gra[24], &player1));
+        usleep(400 * 1000);
         if (se != senkai)return;
-        en.push_back(enemy(1050, -50, 1, &enes[1], &tama_gra[24], &player1));
-        usleep(3000 * 1000);
+        en.push_back(enemy(650, -50, 1, &enes[1], &tama_gra[24], &player1));
+        usleep(400 * 1000);
+        if (se != senkai)return;
+        en.push_back(enemy(550, -50, 1, &enes[1], &tama_gra[24], &player1));
+        usleep(2200 * 1000);
         if (se != senkai)return;
         en.push_back(enemy(2250, -50, 0, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(450, -50, 1, &enes[4], &tama_gra[24], &player1));
@@ -339,37 +343,48 @@ void sce(){
         en.push_back(enemy(1550, -50, 4, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(1250, -50, 4, &enes[1], &tama_gra[24], &player1));
         usleep(2000 * 1000);
-        en.push_back(enemy(2450, -50, 4, &enes[4], &tama_gra[24], &player1));
+        //en.push_back(enemy(2450, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(350, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
         en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        usleep(250 * 1000);
         if (se != senkai)return;
-        en.push_back(enemy(2150, -50, 4, &enes[4], &tama_gra[24], &player1));
-        en.push_back(enemy(650, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
         en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        usleep(250 * 1000);
         if (se != senkai)return;
-        en.push_back(enemy(1850, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(2150, -50, 4, &enes[4], &tama_gra[24], &player1));
+        //en.push_back(enemy(650, -50, 4, &enes[4], &tama_gra[24], &player1));
+        en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
+        en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
+        usleep(250 * 1000);
+        if (se != senkai)return;
+        en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
+        en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
+        usleep(250 * 1000);
+        if (se != senkai)return;
+        //en.push_back(enemy(1850, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(950, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
         en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
-        usleep(500 * 1000);
+        usleep(250 * 1000);
+        if (se != senkai)return;
+        en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
+        en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
+        usleep(250 * 1000);
         if (se != senkai)return;
         en.push_back(enemy(1550, -50, 4, &enes[4], &tama_gra[24], &player1));
-        en.push_back(enemy(1250, -50, 4, &enes[4], &tama_gra[24], &player1));
+        //en.push_back(enemy(1250, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
         en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
         usleep(2000 * 1000);
         en.push_back(enemy(100, -50, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(400, -50, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(650, -50, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(800, -50, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1000, -150, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1200, -150, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(1350, -200, 7, &enes[1], &tama_gra[24], &player1));
-        en.push_back(enemy(2150, -150, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(450, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(700, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1050, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1350, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1650, -50, 7, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(2250, -50, 7, &enes[1], &tama_gra[24], &player1));
         //screen=0;
         usleep(5000 * 1000);
@@ -386,7 +401,6 @@ void die_en(int ite){
         DrawRotaGraph(player1.x,player1.y,kaiten/10,kaiten,shougeki,true);
         usleep(20*1000);
     }
-
     en[ite].isdead=true;
 }
 void controler(){
@@ -395,10 +409,10 @@ void controler(){
     //50fps
     while(screen==2){
         if(frames%4==0)ptama.push_back(tama(player1.x,player1.y-120,std::vector<double>{0,-50},&ptama_graph[0],&player1,true));
-        if(frames%4==0)ptama.push_back(tama(player1.x-80,player1.y,std::vector<double>{-15,-35},&ptama_graph[0],&player1,true));
-        if(frames%4==0)ptama.push_back(tama(player1.x+80,player1.y,std::vector<double>{15,-35},&ptama_graph[0],&player1,true));
+        if(frames%4==0)ptama.push_back(tama(player1.x-20,player1.y,std::vector<double>{-15,-35},&ptama_graph[0],&player1,true));
+        if(frames%4==0)ptama.push_back(tama(player1.x+20,player1.y,std::vector<double>{15,-35},&ptama_graph[0],&player1,true));
         if(frames%1000)for(int i=0;i<ptama.size();){if(ptama[i].x<0||ptama[i].y<0||ptama[i].x>3840||ptama[i].y>2160){ptama.erase(ptama.begin()+i);}else{i++;}}
-        if(frames%1000)for(int i=0;i<en.size();i++){for(int n=0;n<en[i].tamas.size();){if(en[i].tamas[n].x<0||en[i].tamas[n].y<0||en[i].tamas[n].x>2160||en[i].tamas[n].y>3840){en[i].tamas.erase(en[i].tamas.begin()+n);}else{n++;}}}
+        if(frames%1000)for(int i=0;i<en.size();i++){for(int n=0;n<en[i].tamas.size();){if(en[i].tamas[n].x<0||en[i].tamas[n].y<0||en[i].tamas[n].x>3840||en[i].tamas[n].y>2160){en[i].tamas.erase(en[i].tamas.begin()+n);}else{n++;}}}
         frames++;
         for(int i=0;i<en.size();i++){
             en[i].control();
@@ -406,6 +420,7 @@ void controler(){
                 en[i].tamas[n].control();
                 if(en[i].tamas[n].collision(player1.x,player1.y)){
                     if(player1.muteki==0){
+                        ususa=0;
                         std::thread th_(damage_player);
                         th_.detach();
                         player1.health--;
@@ -421,7 +436,7 @@ void controler(){
             for(int n=0;n<en.size();n++){
                 if(ptama[i].collision(en[n].x,en[n].y)){
                     if(en[n].dieing==-1){
-                        en[n].dieing=5;
+                        en[n].dieing=10;
                         player1.score+=10;
                     }
                 }
@@ -430,15 +445,4 @@ void controler(){
         }
         usleep(20*1000);
     }
-}
-void controler_t(){
-    /*while(true){
-        for(int i=0;i<en.size();i++){
-            for(int n=0;n<en[i].tamas.size();n++){
-                en[i].tamas[n].control();
-            }
-        }
-        usleep(20*1000);
-    }*/
-
 }

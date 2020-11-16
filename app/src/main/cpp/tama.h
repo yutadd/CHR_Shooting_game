@@ -10,7 +10,7 @@
 #define TEST_DXLIB_TAMA_H
 class tama {
 public:
-    int x=0,y=0;
+    double x=0.0,y=0.0;
     int* graph;
     int size=30;
     std::vector<double> tama_vector;

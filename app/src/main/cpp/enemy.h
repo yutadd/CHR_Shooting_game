@@ -19,6 +19,7 @@ public:
     int x,y;
     int type;
     int* graph;
+    int ususa=0;
     int dieing=-1;
     int* tama_gra;
     int ene_frame=0;

@@ -9,7 +9,7 @@
 #include "thread"
 #include <random>
 #define PI    3.1415926535897932384626433832795f
-std::vector<double> vect[2];
+std::vector<double> vect[7];
 
 enemy::enemy(){
 
@@ -40,23 +40,24 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = 6;
                     enemy_vector.y = 12;
-                } else if (ene_frame == 60) {
+                } else if (ene_frame == 40) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                     enemy_vector.x = -9;
                     enemy_vector.y = 6;
-                } else if (ene_frame == 80) {
+                } else if (ene_frame == 70) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 90) {
+                    enemy_vector.x = 12;
+                    enemy_vector.y = 3;
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                 } else if (ene_frame == 120) {
-                    enemy_vector.x = 12;
-                    enemy_vector.y = 3;
+
                 }
                 y += enemy_vector.y;
                 x += enemy_vector.x;
@@ -66,24 +67,24 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = -6;
                     enemy_vector.y = 12;
-                } else if (ene_frame == 60) {
-
+                } else if (ene_frame == 40) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                     enemy_vector.x = 9;
                     enemy_vector.y = 6;
-                } else if (ene_frame == 80) {
+                } else if (ene_frame == 70) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 90) {
+                    enemy_vector.x = -12;
+                    enemy_vector.y = 3;
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                 } else if (ene_frame == 120) {
-                    enemy_vector.x = -12;
-                    enemy_vector.y = 3;
+
                 }
                 y += enemy_vector.y;
                 x += enemy_vector.x;
@@ -220,7 +221,7 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = 0;
                     enemy_vector.y = 9;
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 70) {
                     enemy_vector.x = 0;
                     enemy_vector.y = 0;
                     std::random_device rnd;
@@ -228,40 +229,69 @@ void enemy::control(){
                     std::uniform_real_distribution<> rand100(0, 10);
                     int kosu = 2;
                     srand(time(NULL));
-                    for (double i = 0; i < kosu; i++) {
-                        double _rad = ((rand100(mt) / 10) * PI * 1) - 0.1;
-                        //float fx = (10 * cos(_rad)) + x;
-                        //float fy = (10 * sin(_rad)) + y;
-                        std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
-                        vect[(int) i] = v;
-                        tamas.push_back(tama(x, y, v, tama_gra, pl, false));
-                    }
+                    double _rad = ((90.00 / 360.00) * PI * 2.00);
+                    double _rad1 = ((91.00 / 360.00) * PI * 2.00);
+                    double _rad2 = ((93.00 / 360.00) * PI * 2.00);
+                    double _rad3 = ((96.00 / 360.00) * PI * 2.00);
+                    double _rad4 = ((99.00 / 360.00) * PI * 2.00);
+                    double _rad5 = ((101.00 / 360.00) * PI * 2.00);
+                    double _rad6 = ((102.00 / 360.00) * PI * 2.00);
+                    //float fx = (10 * cos(_rad)) + x;
+                    //float fy = (10 * sin(_rad)) + y;
+                    std::vector<double> v = {18.00 * cos(_rad), 18.00 * sin(_rad)};
+                    std::vector<double> v1 = {18.00 * cos(_rad1), 18.00 * sin(_rad1)};
+                    std::vector<double> v2 = {18.00 * cos(_rad2), 18.00 * sin(_rad2)};
+                    std::vector<double> v3 = {18.00 * cos(_rad3), 18.00 * sin(_rad3)};
+                    std::vector<double> v4 = {18.00 * cos(_rad4), 18.00 * sin(_rad4)};
+                    std::vector<double> v5 = {18.00 * cos(_rad5), 18.00 * sin(_rad5)};
+                    std::vector<double> v6 = {18.00 * cos(_rad6), 18.00 * sin(_rad6)};
+                    vect[0] = v;
+                    vect[1]=v1;
+                    vect[2]=v2;
+                    vect[3]=v3;
+                    vect[4]=v4;
+                    vect[5]=v5;
+                    vect[6]=v6;
+                } else if (ene_frame == 90) {
+                    tamas.push_back(tama(x, y, vect[1], tama_gra, pl, false));
+                } else if (ene_frame == 95) {
+                    tamas.push_back(tama(x, y, vect[2], tama_gra, pl, false));
+                } else if (ene_frame == 100) {
+                    tamas.push_back(tama(x, y, vect[3], tama_gra, pl, false));
+                } else if (ene_frame == 105) {
+                    tamas.push_back(tama(x, y, vect[4], tama_gra, pl, false));
                 } else if (ene_frame == 110) {
-                    for (int i = 0; i < 2; i++) {
-                        tamas.push_back(tama(x, y, vect[i], tama_gra, pl, false));
-                    }
-
-                } else if (ene_frame == 120) {
-                    for (int i = 0; i < 2; i++) {
-                        tamas.push_back(tama(x, y, vect[i], tama_gra, pl, false));
-                    }
-
-                } else if (ene_frame == 130) {
-                    for (int i = 0; i < 2; i++) {
-                        tamas.push_back(tama(x, y, vect[i], tama_gra, pl, false));
-                    }
-
-                } else if (ene_frame == 140) {
-                    for (int i = 0; i < 2; i++) {
-                        tamas.push_back(tama(x, y, vect[i], tama_gra, pl, false));
-                    }
-
-                } else if (ene_frame == 150) {
-                    for (int i = 0; i < 2; i++) {
-                        tamas.push_back(tama(x, y, vect[i], tama_gra, pl, false));
-                    }
-
-                } else if (ene_frame == 200) {
+                    tamas.push_back(tama(x, y, vect[5], tama_gra, pl, false));
+                }else if (ene_frame == 115) {
+                    tamas.push_back(tama(x, y, vect[6], tama_gra, pl, false));
+                }else if (ene_frame == 120) {
+                    tamas.push_back(tama(x, y, vect[5], tama_gra, pl, false));
+                }else if (ene_frame == 125) {
+                    tamas.push_back(tama(x, y, vect[4], tama_gra, pl, false));
+                }else if (ene_frame == 130) {
+                    tamas.push_back(tama(x, y, vect[3], tama_gra, pl, false));
+                }else if (ene_frame == 135) {
+                    tamas.push_back(tama(x, y, vect[2], tama_gra, pl, false));
+                }else if (ene_frame == 140) {
+                    tamas.push_back(tama(x, y, vect[1], tama_gra, pl, false));
+                }else if (ene_frame == 145) {
+                    tamas.push_back(tama(x, y, vect[0], tama_gra, pl, false));
+                }else if (ene_frame == 150) {
+                    tamas.push_back(tama(x, y, vect[1], tama_gra, pl, false));
+                }else if (ene_frame == 155) {
+                    tamas.push_back(tama(x, y, vect[2], tama_gra, pl, false));
+                }else if (ene_frame == 160) {
+                    tamas.push_back(tama(x, y, vect[3], tama_gra, pl, false));
+                }else if (ene_frame == 165) {
+                    tamas.push_back(tama(x, y, vect[4], tama_gra, pl, false));
+                }else if (ene_frame == 170) {
+                    tamas.push_back(tama(x, y, vect[5], tama_gra, pl, false));
+                }else if (ene_frame == 175) {
+                    tamas.push_back(tama(x, y, vect[6], tama_gra, pl, false));
+                }else if (ene_frame == 165) {
+                    tamas.push_back(tama(x, y, vect[2], tama_gra, pl, false));
+                }
+                else if (ene_frame == 200) {
                     enemy_vector.x = 0;
                     enemy_vector.y = -9;
                 }
