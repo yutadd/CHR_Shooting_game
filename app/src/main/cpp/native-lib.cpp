@@ -283,7 +283,7 @@ void sce(){
     int se=senkai;
     while(true) {
         if (se != senkai)return;
-        /*en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
+        en.push_back(enemy(1950, -50, 0, &enes[1], &tama_gra[24], &player1));
         usleep(400 * 1000);
         if (se != senkai)return;
         en.push_back(enemy(1850, -50, 0, &enes[1], &tama_gra[24], &player1));
@@ -377,7 +377,7 @@ void sce(){
         en.push_back(enemy(1550, -50, 4, &enes[4], &tama_gra[24], &player1));
         //en.push_back(enemy(1250, -50, 4, &enes[4], &tama_gra[24], &player1));
         en.push_back(enemy(-50, 500, 5, &enes[7], &tama_gra[24], &player1));
-        en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));*/
+        en.push_back(enemy(2500, 500, 6, &enes[7], &tama_gra[24], &player1));
         usleep(2000 * 1000);
         //en.push_back(enemy(100, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(400, -50, 7, &enes[1], &tama_gra[24], &player1));
@@ -396,7 +396,7 @@ void sce(){
        //en.push_back(enemy(1600, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(1900, -50, 7, &enes[1], &tama_gra[24], &player1));
        //en.push_back(enemy(2200, -50, 7, &enes[1], &tama_gra[24], &player1));
-        usleep(800 * 1000);
+        usleep(1000 * 1000);
         //en.push_back(enemy(100, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(400, -50, 7, &enes[1], &tama_gra[24], &player1));
         //en.push_back(enemy(700, -50, 7, &enes[1], &tama_gra[24], &player1));
@@ -414,7 +414,6 @@ void sce(){
         //en.push_back(enemy(1600, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(1900, -50, 7, &enes[1], &tama_gra[24], &player1));
         //en.push_back(enemy(2200, -50, 7, &enes[1], &tama_gra[24], &player1));
-        //screen=0;
         usleep(5000 * 1000);
     }
 }

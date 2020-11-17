@@ -40,17 +40,17 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = 6;
                     enemy_vector.y = 18;
-                } else if (ene_frame == 40) {
+                } else if (ene_frame == 30) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                     enemy_vector.x = -18;
                     enemy_vector.y = 10;
-                } else if (ene_frame == 70) {
+                } else if (ene_frame == 55) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
-                } else if (ene_frame == 90) {
+                } else if (ene_frame == 70) {
                     enemy_vector.x = 17;
                     enemy_vector.y = 5;
                     double _rad = atan2(pl->y - y, pl->x - x);
@@ -67,17 +67,17 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = -9;
                     enemy_vector.y = 18;
-                } else if (ene_frame == 40) {
+                } else if (ene_frame == 30) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                     enemy_vector.x = 15;
                     enemy_vector.y = 2;
-                } else if (ene_frame == 70) {
+                } else if (ene_frame == 55) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
-                } else if (ene_frame == 90) {
+                } else if (ene_frame == 70) {
                     enemy_vector.x = -17;
                     enemy_vector.y = 7;
                     double _rad = atan2(pl->y - y, pl->x - x);
@@ -94,7 +94,7 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = 0;
                     enemy_vector.y = 15;
-                } else if (ene_frame == 60) {
+                } else if (ene_frame == 40) {
                     int kosu = 15;
                     int kakudo = 0;
                     float hanni = 2;
@@ -109,13 +109,13 @@ void enemy::control(){
                     }
                     enemy_vector.x = 17;
                     enemy_vector.y = -7;
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 80) {
                     enemy_vector.x = 17;
                     enemy_vector.y = 7;
-                } else if (ene_frame == 140) {
+                } else if (ene_frame == 120) {
                     enemy_vector.x =17;
                     enemy_vector.y = -7;
-                } else if (ene_frame == 180) {
+                } else if (ene_frame == 160) {
                     enemy_vector.x = 17;
                     enemy_vector.y = 7;
                 }
@@ -127,7 +127,7 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = 0;
                     enemy_vector.y = 6;
-                } else if (ene_frame == 60) {
+                } else if (ene_frame == 40) {
                     int kosu = 15;
                     int kakudo = 0;
                     float hanni = 2;
@@ -142,13 +142,13 @@ void enemy::control(){
                     }
                     enemy_vector.x = -17;
                     enemy_vector.y = -7;
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 80) {
                     enemy_vector.x = -17;
                     enemy_vector.y = 7;
-                } else if (ene_frame == 140) {
+                } else if (ene_frame == 120) {
                     enemy_vector.x = -17;
                     enemy_vector.y = -7;
-                } else if (ene_frame == 180) {
+                } else if (ene_frame == 160) {
                     enemy_vector.x = -17;
                     enemy_vector.y = 7;
                 }
@@ -160,7 +160,7 @@ void enemy::control(){
                 if (ene_frame <= 5) {
                     enemy_vector.x = 0;
                     enemy_vector.y = 17;
-                } else if (ene_frame == 40) {
+                } else if (ene_frame == 30) {
                     double kosu = 8.0;
                     double kakudo = 0.3;
                     double hanni = 1;
@@ -175,7 +175,7 @@ void enemy::control(){
 
                     enemy_vector.x = 0;
                     enemy_vector.y = 0;
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 80) {
                     enemy_vector.x = -0;
                     enemy_vector.y = -17;
                 }
@@ -186,7 +186,7 @@ void enemy::control(){
             case 5:
                 if (ene_frame == 5) {
                     enemy_vector.x = 18;
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 60) {
                     int kosu = 20;
                     for (double i = 0; i < kosu; i++) {
                         double _rad = ((i / kosu) * PI * 2) + 0;
@@ -203,7 +203,7 @@ void enemy::control(){
             case 6:
                 if (ene_frame <= 5) {
                     enemy_vector.x = -20;
-                } else if (ene_frame == 100) {
+                } else if (ene_frame == 60) {
                     int kosu = 20;
                     for (double i = 0; i < kosu; i++) {
                         double _rad = ((i / kosu) * PI * 2) + 0;
@@ -220,7 +220,7 @@ void enemy::control(){
                     health=10;
                     enemy_vector.x = 0;
                     enemy_vector.y = 17;
-                } else if (ene_frame == 50) {
+                } else if (ene_frame == 30) {
                     enemy_vector.x = 0;
                     enemy_vector.y = 0;
                     std::random_device rnd;
@@ -249,6 +249,10 @@ void enemy::control(){
                     vect[4]=v4;
                     vect[5]=v5;
                     vect[6]=v6;
+                    tamas.push_back(tama(x, y, vect[0], tama_gra, pl, false));
+                    tamas.push_back(tama(x, y, vect[2], tama_gra, pl, false));
+                    tamas.push_back(tama(x, y, vect[4], tama_gra, pl, false));
+                    tamas.push_back(tama(x, y, vect[6], tama_gra, pl, false));
                 } else if (ene_frame == 90) {
                     tamas.push_back(tama(x, y, vect[1], tama_gra, pl, false));
                 } else if (ene_frame == 95) {
