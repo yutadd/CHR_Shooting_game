@@ -304,7 +304,7 @@ void enemy::control(){
                 if(ene_frame=1){
                     enemy_vector.x=0;
                     enemy_vector.y=-15;
-                }else{
+                }else {
 
                 }
                 break;
