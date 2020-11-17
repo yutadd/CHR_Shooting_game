@@ -43,6 +43,8 @@ int android_main( void )
     int normal;
     int hard;
     int level;
+    int tan;
+
     int title_bake;
     int fonts_small[75];
     int fonts[75];
@@ -52,14 +54,15 @@ int android_main( void )
     // ＤＸライブラリの初期化
     if( DxLib_Init() < 0 ) return -1 ;
     level=0;
-    zin=LoadGraph("zin2.png");
-shougeki2=LoadGraph("shougeki2.png");
+    tan=LoadGraph("tan.png");
+    zin=LoadGraph("zin4.png");
+    shougeki2=LoadGraph("shougeki2.png");
     shougeki=LoadGraph("shougeki.png");
     hart=LoadGraph("hart.png");
     subtitle=LoadGraph("subtitle.png");
     mahou=LoadGraph("maho.png");
-    back=LoadGraph("haikei.png");
-    title_haikei=LoadGraph("haikei.jpg");
+    back=LoadGraph("haikei2.png");
+    title_haikei=LoadGraph("haikei2.jpg");
     title_bake=LoadGraph("title_bake.png");
     easy=LoadGraph("easy.png");
     normal=LoadGraph("normal.png");
@@ -137,7 +140,6 @@ shougeki2=LoadGraph("shougeki2.png");
     int title_size=1;
     int tempx;
     int tempy;
-
     bool title_b=false;
     while(ProcessMessage()==0){
         if(screen==0){
@@ -146,7 +148,9 @@ shougeki2=LoadGraph("shougeki2.png");
             int animation_title=0;
             int animation_start=3840;
             int animation_exit=3840;
+            int animation_akarusa=255;
             while( ProcessMessage() == 0) {
+                if(animation_akarusa>0)animation_akarusa-=2;
                 if(animation_kyara<1200)animation_kyara+=42;
                 if(animation_title<2000)animation_title+=42;
                 if(animation_start>2790)animation_start-=30;
@@ -164,6 +168,9 @@ shougeki2=LoadGraph("shougeki2.png");
                 DrawFormatStringF(3000, 0, GetColor(255, 255, 255), "FPS:%i", fps);
                 DrawRotaGraphF(800, /*390+*/animation_kyara, 19, 0,kyara[1], true);
                 DrawRotaGraphF(1890, 2070, 0.9, 0, right, true);
+                SetDrawBlendMode(DX_BLENDMODE_ALPHA,animation_akarusa);
+                DrawGraph(0,0,tan,true);
+                SetDrawBlendMode(DX_BLENDMODE_NOBLEND,animation_akarusa);
                 ScreenFlip() ;
                 GetTouchInput(touch_num, &tempx, &tempy);
                 if(GetTouchInputNum()>0) {
@@ -231,10 +238,10 @@ shougeki2=LoadGraph("shougeki2.png");
                 frames++;
                 ClearDrawScreen();
                 if(player1.muteki>0){
-                        SetDrawBlendMode(DX_BLENDMODE_ALPHA,255-ususa);
-                        ususa+=20;
-                        DrawRotaGraph(player1.x,player1.y,150-player1.muteki,0,shougeki,true);
-                        SetDrawBlendMode(DX_BLENDMODE_NOBLEND,200);
+                    SetDrawBlendMode(DX_BLENDMODE_ALPHA,255-ususa);
+                    ususa+=20;
+                    DrawRotaGraph(player1.x,player1.y,150-player1.muteki,0,shougeki,true);
+                    SetDrawBlendMode(DX_BLENDMODE_NOBLEND,200);
                 }
                 player1.control();
                 for(int i=0;i<en.size();i++){
@@ -262,14 +269,14 @@ shougeki2=LoadGraph("shougeki2.png");
                 DrawRotaGraph(player1.x,player1.y,7,kaiten,mahou,true);
                 SetDrawBlendMode(DX_BLENDMODE_NOBLEND,255);
                 DrawGraph(0, 0, back, true);
-                DrawFormatStringToHandle(2400,400,GetColor(0,0,0),font01,"player");
-                DrawFormatStringToHandle(2395,390,GetColor(255,255,255),font01,"player");
+                DrawFormatStringToHandle(2500,400,GetColor(0,0,0),font01,"player");
+                DrawFormatStringToHandle(2495,390,GetColor(255,255,255),font01,"player");
                 for(int i=0;i<player1.health;i++){
-                    DrawRotaGraph(3000+(92*i),500,0.7,0,hart,true);
+                    DrawRotaGraph(3100+(92*i),500,0.7,0,hart,true);
                 }
-                DrawFormatStringToHandle(2400,200,GetColor(0,0,0),font01,"得点        %07d",player1.score);
-                DrawFormatStringToHandle(2395,190,GetColor(255,255,255),font01,"得点        %07d",player1.score);
-                DrawRotaGraph(3100,1500,1,0,zin,true);
+                DrawFormatStringToHandle(2500,200,GetColor(0,0,0),font01,"得点        %07d",player1.score);
+                DrawFormatStringToHandle(2495,190,GetColor(255,255,255),font01,"得点        %07d",player1.score);
+                DrawRotaGraph(3120,1500,1.6,0,zin,true);
                 ScreenFlip();
             }
         }
@@ -439,9 +446,9 @@ void sce(){
         en.push_back(enemy(700, -50, 7, &enes[1], &tama_gra[24], &player1));
         //en.push_back(enemy(1000, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(1300, -50, 7, &enes[1], &tama_gra[24], &player1));
-       //en.push_back(enemy(1600, -50, 7, &enes[1], &tama_gra[24], &player1));
+        //en.push_back(enemy(1600, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(1900, -50, 7, &enes[1], &tama_gra[24], &player1));
-       //en.push_back(enemy(2200, -50, 7, &enes[1], &tama_gra[24], &player1));
+        //en.push_back(enemy(2200, -50, 7, &enes[1], &tama_gra[24], &player1));
         usleep(1000 * 1000);
         //en.push_back(enemy(100, -50, 7, &enes[1], &tama_gra[24], &player1));
         en.push_back(enemy(400, -50, 7, &enes[1], &tama_gra[24], &player1));
