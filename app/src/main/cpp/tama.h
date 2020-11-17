@@ -10,6 +10,7 @@
 #define TEST_DXLIB_TAMA_H
 class tama {
 public:
+    bool enabled=true;
     double x=0.0,y=0.0;
     int* graph;
     int size=30;

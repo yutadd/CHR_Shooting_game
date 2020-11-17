@@ -18,6 +18,7 @@ public:
     player* pl;
     int x,y;
     int type;
+    int health=0;
     int* graph;
     int ususa=0;
     int dieing=-1;

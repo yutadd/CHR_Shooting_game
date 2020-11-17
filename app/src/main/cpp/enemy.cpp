@@ -39,20 +39,20 @@ void enemy::control(){
             case 0:
                 if (ene_frame <= 5) {
                     enemy_vector.x = 6;
-                    enemy_vector.y = 12;
+                    enemy_vector.y = 18;
                 } else if (ene_frame == 40) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
-                    enemy_vector.x = -9;
-                    enemy_vector.y = 6;
+                    enemy_vector.x = -18;
+                    enemy_vector.y = 10;
                 } else if (ene_frame == 70) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                 } else if (ene_frame == 90) {
-                    enemy_vector.x = 12;
-                    enemy_vector.y = 3;
+                    enemy_vector.x = 17;
+                    enemy_vector.y = 5;
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
@@ -65,21 +65,21 @@ void enemy::control(){
                 //右、右下に進み、3発程度発射、画面外に移動
             case 1:
                 if (ene_frame <= 5) {
-                    enemy_vector.x = -6;
-                    enemy_vector.y = 12;
+                    enemy_vector.x = -9;
+                    enemy_vector.y = 18;
                 } else if (ene_frame == 40) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
-                    enemy_vector.x = 9;
-                    enemy_vector.y = 6;
+                    enemy_vector.x = 15;
+                    enemy_vector.y = 2;
                 } else if (ene_frame == 70) {
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                 } else if (ene_frame == 90) {
-                    enemy_vector.x = -12;
-                    enemy_vector.y = 3;
+                    enemy_vector.x = -17;
+                    enemy_vector.y = 7;
                     double _rad = atan2(pl->y - y, pl->x - x);
                     std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                     tamas.push_back(tama(x, y, v, tama_gra, pl, false));
@@ -93,7 +93,7 @@ void enemy::control(){
             case 2:
                 if (ene_frame <= 5) {
                     enemy_vector.x = 0;
-                    enemy_vector.y = 6;
+                    enemy_vector.y = 15;
                 } else if (ene_frame == 60) {
                     int kosu = 15;
                     int kakudo = 0;
@@ -107,17 +107,17 @@ void enemy::control(){
                                 tama(x, y, std::vector<double>{(fx - x) / 60, (fy - y) / 60},
                                      tama_gra, pl, false));
                     }
-                    enemy_vector.x = 9;
-                    enemy_vector.y = -3;
+                    enemy_vector.x = 17;
+                    enemy_vector.y = -7;
                 } else if (ene_frame == 100) {
-                    enemy_vector.x = 9;
-                    enemy_vector.y = 3;
+                    enemy_vector.x = 17;
+                    enemy_vector.y = 7;
                 } else if (ene_frame == 140) {
-                    enemy_vector.x = 9;
-                    enemy_vector.y = -3;
+                    enemy_vector.x =17;
+                    enemy_vector.y = -7;
                 } else if (ene_frame == 180) {
-                    enemy_vector.x = 9;
-                    enemy_vector.y = 3;
+                    enemy_vector.x = 17;
+                    enemy_vector.y = 7;
                 }
                 y += enemy_vector.y;
                 x += enemy_vector.x;
@@ -140,17 +140,17 @@ void enemy::control(){
                                 tama(x, y, std::vector<double>{(fx - x) / 60, (fy - y) / 60},
                                      tama_gra, pl, false));
                     }
-                    enemy_vector.x = -9;
-                    enemy_vector.y = -3;
+                    enemy_vector.x = -17;
+                    enemy_vector.y = -7;
                 } else if (ene_frame == 100) {
-                    enemy_vector.x = -9;
-                    enemy_vector.y = 3;
+                    enemy_vector.x = -17;
+                    enemy_vector.y = 7;
                 } else if (ene_frame == 140) {
-                    enemy_vector.x = -9;
-                    enemy_vector.y = -3;
+                    enemy_vector.x = -17;
+                    enemy_vector.y = -7;
                 } else if (ene_frame == 180) {
-                    enemy_vector.x = -9;
-                    enemy_vector.y = 3;
+                    enemy_vector.x = -17;
+                    enemy_vector.y = 7;
                 }
                 y += enemy_vector.y;
                 x += enemy_vector.x;
@@ -159,7 +159,7 @@ void enemy::control(){
             case 4:
                 if (ene_frame <= 5) {
                     enemy_vector.x = 0;
-                    enemy_vector.y = 9;
+                    enemy_vector.y = 17;
                 } else if (ene_frame == 40) {
                     double kosu = 8.0;
                     double kakudo = 0.3;
@@ -177,7 +177,7 @@ void enemy::control(){
                     enemy_vector.y = 0;
                 } else if (ene_frame == 100) {
                     enemy_vector.x = -0;
-                    enemy_vector.y = -9;
+                    enemy_vector.y = -17;
                 }
                 y += enemy_vector.y;
                 x += enemy_vector.x;
@@ -185,7 +185,7 @@ void enemy::control(){
                 //左から右、途中で円形に発射
             case 5:
                 if (ene_frame == 5) {
-                    enemy_vector.x = 10;
+                    enemy_vector.x = 18;
                 } else if (ene_frame == 100) {
                     int kosu = 20;
                     for (double i = 0; i < kosu; i++) {
@@ -202,13 +202,11 @@ void enemy::control(){
                 //右から左、途中で円形に発射
             case 6:
                 if (ene_frame <= 5) {
-                    enemy_vector.x = -10;
+                    enemy_vector.x = -20;
                 } else if (ene_frame == 100) {
                     int kosu = 20;
                     for (double i = 0; i < kosu; i++) {
                         double _rad = ((i / kosu) * PI * 2) + 0;
-                        //float fx = (10 * cos(_rad)) + x;
-                        //float fy = (10 * sin(_rad)) + y;
                         std::vector<double> v = {18 * cos(_rad), 18 * sin(_rad)};
                         tamas.push_back(tama(x, y, v, tama_gra, pl, false));
                     }
@@ -219,9 +217,10 @@ void enemy::control(){
                 //上から下、ランダム方向４つに５回発射
             case 7:
                 if (ene_frame <= 5) {
+                    health=10;
                     enemy_vector.x = 0;
-                    enemy_vector.y = 9;
-                } else if (ene_frame == 70) {
+                    enemy_vector.y = 17;
+                } else if (ene_frame == 50) {
                     enemy_vector.x = 0;
                     enemy_vector.y = 0;
                     std::random_device rnd;
@@ -236,8 +235,6 @@ void enemy::control(){
                     double _rad4 = ((99.00 / 360.00) * PI * 2.00);
                     double _rad5 = ((101.00 / 360.00) * PI * 2.00);
                     double _rad6 = ((102.00 / 360.00) * PI * 2.00);
-                    //float fx = (10 * cos(_rad)) + x;
-                    //float fy = (10 * sin(_rad)) + y;
                     std::vector<double> v = {18.00 * cos(_rad), 18.00 * sin(_rad)};
                     std::vector<double> v1 = {18.00 * cos(_rad1), 18.00 * sin(_rad1)};
                     std::vector<double> v2 = {18.00 * cos(_rad2), 18.00 * sin(_rad2)};
@@ -245,7 +242,7 @@ void enemy::control(){
                     std::vector<double> v4 = {18.00 * cos(_rad4), 18.00 * sin(_rad4)};
                     std::vector<double> v5 = {18.00 * cos(_rad5), 18.00 * sin(_rad5)};
                     std::vector<double> v6 = {18.00 * cos(_rad6), 18.00 * sin(_rad6)};
-                    vect[0] = v;
+                    vect[0] =v;
                     vect[1]=v1;
                     vect[2]=v2;
                     vect[3]=v3;
@@ -293,10 +290,19 @@ void enemy::control(){
                 }
                 else if (ene_frame == 200) {
                     enemy_vector.x = 0;
-                    enemy_vector.y = -9;
+                    enemy_vector.y = -15;
                 }
                 y += enemy_vector.y;
                 x += enemy_vector.x;
+                break;
+                //円形に大きな玉を配置後、円形に球を撃つ
+            case 8:
+                if(ene_frame=1){
+                    enemy_vector.x=0;
+                    enemy_vector.y=-15;
+                }else{
+
+                }
                 break;
         }
     }
