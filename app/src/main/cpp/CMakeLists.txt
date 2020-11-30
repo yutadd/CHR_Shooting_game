@@ -19,6 +19,8 @@ add_library( # Sets the name of the library.
              native-lib.cpp
         player.cpp
         player.h
+        gazou.cpp
+        gazou.h
         enemy.cpp
         enemy.h
         tama.cpp

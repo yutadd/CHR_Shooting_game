@@ -301,12 +301,34 @@ void enemy::control(){
                 break;
                 //円形に大きな玉を配置後、円形に球を撃つ
             case 8:
-                if(ene_frame=1){
+                if(ene_frame<=5){
+                    ext=4;
+                    health=150;
                     enemy_vector.x=0;
-                    enemy_vector.y=-15;
-                }else {
-
+                    enemy_vector.y=8;
+                }else if(ene_frame<=99){
+                    kaiwa=1;
+                    show_ani=true;
+                }else if(ene_frame>=100&&ene_frame<=145){
+                    ene_ani++;
+                    enemy_vector.x=0;
+                    enemy_vector.y=0;
+                }else if(ene_frame==146){
+                    show_ani=false;
+                }else if(ene_frame<=300){
+                    kaiwa=2;
+                }else if(ene_frame<=450){
+                    kaiwa=3;
+                }else if(ene_frame<=600){
+                    kaiwa=4;
+                }else if(ene_frame<=750){
+                    kaiwa=5;
+                }else if(ene_frame<=900){
+                    kaiwa=0;
+                    //つくっていないので、初期画面に戻しちゃう！じゃあね！
                 }
+                y += enemy_vector.y;
+                x += enemy_vector.x;
                 break;
         }
     }
@@ -315,8 +337,34 @@ void enemy::control(){
 void enemy::draw(){
     //DrawFormatString((float)pl->x,(float)pl->y,GetColor(255,255,255),"%d",pl->y);
     if(!isdead){
-        DrawRotaGraphF((int)x,(int)y,3.0,0,*graph,1);
+        DrawRotaGraphF((int)x,(int)y,ext,0,*graph,1);
+        if(show_ani){
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA,ene_ani);
+            DrawRotaGraphF((int)x+1,(int)y+1,3.0+(ene_ani/6.0),0,*graph,1);
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND,200);
+        }
     }
+    if(kaiwa==1){
+        SetFontSize(500);
+        DrawGraph(120,1230,LoadGraph("reimu_mu.png"),1);
+        DrawGraph(120,1600,LoadGraph("serihu1.png"),1);
+        //DrawFormatString(200,1600,GetColor(0,0,0),"ちょっと空気が冷たいわね。");
+    }else if(kaiwa==2){
+        SetFontSize(500);
+        DrawGraph(120,1230,LoadGraph("tiruno_ko.jpg"),1);
+        DrawGraph(120,1600,LoadGraph("serihu2.png"),1);
+        //DrawFormatString(200,1900,GetColor(255,255,255),"ねえ！ちょっとあんた！誰に許可取って入ったの！？");
+    }else if(kaiwa==3){
+        DrawGraph(120,1230,LoadGraph("reimu_ko.png"),1);
+        DrawGraph(120,1600,LoadGraph("serihu3.png"),1);
+    }else if(kaiwa==4){
+        DrawGraph(120,1230,LoadGraph("tiruno_at.jpg"),1);
+        DrawGraph(120,1600,LoadGraph("serihu4.png"),1);
+    }else if(kaiwa==5){
+        DrawGraph(120,1230,LoadGraph("reimu_eg.png"),1);
+        DrawGraph(120,1600,LoadGraph("serihu5.png"),1);
+    }
+
 }
 enemy::~enemy() {
 

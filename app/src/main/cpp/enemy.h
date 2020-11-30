@@ -18,14 +18,17 @@ public:
     player* pl;
     int x,y;
     int type;
+    int ene_ani=0;
     int health=0;
+    int ext=3;
     int* graph;
     int ususa=0;
     int dieing=-1;
+    int kaiwa=0;
     int* tama_gra;
+    bool show_ani=false;
     int ene_frame=0;
     bool isdead=false;
-    int gazo=LoadGraph("exit.bmp");
 //vector<kome>;
     VECTOR enemy_vector;
     enemy(int x,int y,int type, int* graph,int* tama_gra,player* pl);
