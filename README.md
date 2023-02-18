@@ -1,4 +1,4 @@
-#CHR シューティング！
+# CHR シューティング！
 
 ## build
 Android stdioでgitからクローンして、C:/DXLib_Android/にDxlibからダウンロードしたandroid用のdxlibのDxLib_Android\Lib_Android以下をコピーしてください
